@@ -13,3 +13,6 @@ class SeqGAN(object):
 
 	def pre_train_epoch(self):
 		pass
+
+if __name__ == '__main__':
+	model = SeqGAN()

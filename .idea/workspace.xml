@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd0ed05a-6d7c-4710-9a60-d27eac9dafa9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SeqGAN/Run.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeqGAN/Run.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/SeqGAN/corpus_lstm.py" afterPath="$PROJECT_DIR$/SeqGAN/Model/corpus_lstm.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/SeqGAN/data_loader.py" afterPath="$PROJECT_DIR$/SeqGAN/Datasets/data_loader.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/SeqGAN/discriminator.py" afterPath="$PROJECT_DIR$/SeqGAN/Model/discriminator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/SeqGAN/generator.py" afterPath="$PROJECT_DIR$/SeqGAN/Model/generator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/SeqGAN/hyperparameters.py" afterPath="$PROJECT_DIR$/SeqGAN/Config/hyperparameters.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/adversarial.py" afterPath="$PROJECT_DIR$/SeqGAN/adversarial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/corpus_lstm.py" afterPath="$PROJECT_DIR$/SeqGAN/corpus_lstm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/data_loader.py" afterPath="$PROJECT_DIR$/SeqGAN/data_loader.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/discriminator.py" afterPath="$PROJECT_DIR$/SeqGAN/discriminator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/generator.py" afterPath="$PROJECT_DIR$/SeqGAN/generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeqGAN/hyperparameters.py" afterPath="$PROJECT_DIR$/SeqGAN/hyperparameters.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,20 +23,18 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="corpus_lstm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/corpus_lstm.py">
+      <file leaf-file-name="corpus_lstm.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SeqGAN/Model/corpus_lstm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <element signature="e#23#46#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="24">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="generator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/generator.py">
+        <entry file="file://$PROJECT_DIR$/SeqGAN/Model/generator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
               <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
@@ -47,7 +44,7 @@
         </entry>
       </file>
       <file leaf-file-name="discriminator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/discriminator.py">
+        <entry file="file://$PROJECT_DIR$/SeqGAN/Model/discriminator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
               <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
@@ -57,7 +54,7 @@
         </entry>
       </file>
       <file leaf-file-name="data_loader.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/data_loader.py">
+        <entry file="file://$PROJECT_DIR$/SeqGAN/Datasets/data_loader.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
@@ -67,30 +64,20 @@
         </entry>
       </file>
       <file leaf-file-name="hyperparameters.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/hyperparameters.py">
+        <entry file="file://$PROJECT_DIR$/SeqGAN/Config/hyperparameters.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+              <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adversarial.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="adversarial.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SeqGAN/adversarial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Run.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeqGAN/Run.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="408">
+              <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -123,13 +110,14 @@
         <option value="$PROJECT_DIR$/SeqGAN/Generator.py" />
         <option value="$PROJECT_DIR$/SeqGAN/Adversarial.py" />
         <option value="$PROJECT_DIR$/SeqGAN/Discriminator.py" />
-        <option value="$PROJECT_DIR$/SeqGAN/Run.py" />
-        <option value="$PROJECT_DIR$/SeqGAN/adversarial.py" />
-        <option value="$PROJECT_DIR$/SeqGAN/corpus_lstm.py" />
         <option value="$PROJECT_DIR$/SeqGAN/generator.py" />
         <option value="$PROJECT_DIR$/SeqGAN/discriminator.py" />
         <option value="$PROJECT_DIR$/SeqGAN/data_loader.py" />
         <option value="$PROJECT_DIR$/SeqGAN/hyperparameters.py" />
+        <option value="$PROJECT_DIR$/../SeqGAN/LSTM.py" />
+        <option value="$PROJECT_DIR$/SeqGAN/corpus_lstm.py" />
+        <option value="$PROJECT_DIR$/SeqGAN/Run.py" />
+        <option value="$PROJECT_DIR$/SeqGAN/adversarial.py" />
       </list>
     </option>
   </component>
@@ -185,12 +173,69 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Datasets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Attention-Based-Reward-SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeqGAN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/SeqGAN/Model" />
+      <recent name="$PROJECT_DIR$/SeqGAN/Datasets" />
+      <recent name="$PROJECT_DIR$/SeqGAN/Config" />
       <recent name="$PROJECT_DIR$/Adversarial/model" />
     </key>
   </component>
@@ -345,9 +390,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3455" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -422,25 +467,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeqGAN/corpus_lstm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SeqGAN/generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SeqGAN/discriminator.py">
+    <entry file="file://$PROJECT_DIR$/SeqGAN/Model/discriminator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
@@ -448,7 +475,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeqGAN/data_loader.py">
+    <entry file="file://$PROJECT_DIR$/SeqGAN/Model/generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SeqGAN/LSTM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="27" lean-forward="true" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding>
+            <element signature="e#24#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeqGAN/Datasets/data_loader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
@@ -456,26 +501,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeqGAN/hyperparameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeqGAN/Run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="72">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SeqGAN/adversarial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="408">
+          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeqGAN/Config/hyperparameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeqGAN/Model/corpus_lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
