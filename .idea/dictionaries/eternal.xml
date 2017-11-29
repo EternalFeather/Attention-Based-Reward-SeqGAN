@@ -1,11 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="eternal">
     <words>
+      <w>conv</w>
       <w>datasets</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>nonlinearity</w>
       <w>pretrain</w>
+      <w>relu</w>
       <w>softmax</w>
+      <w>unnormalized</w>
     </words>
   </dictionary>
 </component>

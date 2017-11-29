@@ -15,6 +15,7 @@ class SeqGAN(object):
 		random.seed(pm.RANDOM_SEED)
 		np.random.seed(pm.RANDOM_SEED)
 		assert pm.START_TOKEN == 0
+
 		config = tf.ConfigProto()
 		config.gpu_options.allow_growth = True
 		sess = tf.Session(config=config)

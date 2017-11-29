@@ -4,6 +4,11 @@ from tensorflow.python.ops import tensor_array_ops, control_flow_ops
 
 
 class Generator(object):
+	"""
+	A RNN Decoder for sequence generation.
+	Uses an embedding layer, followed by a lstm layer and flatten softmax layer.
+	"""
+
 	def __init__(self, vocab_size, batch_size, emb_size, hidden_size, seq_length, start_token, learning_rate, reward_gamma):
 		self.vocab_size = vocab_size
 		self.batch_size = batch_size
@@ -17,7 +22,7 @@ class Generator(object):
 		self.grad_clip = 5.0
 		self.expected_reward = tf.Variable(tf.zeros([self.seq_length]))
 
-		with tf.variable_scope('generator'):
+		with tf.variable_scope("generator"):
 			self.g_embeddings = tf.Variable(tf.random_normal([self.vocab_size, self.emb_size]))
 			self.g_params.append(self.g_embeddings)     # shape = [1, vocab_size, emb_size]
 			self.g_lstm_forward = self.recurrent_lstm_forward(self.g_params)
