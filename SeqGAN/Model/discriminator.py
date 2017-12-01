@@ -46,7 +46,7 @@ class Discriminator(object):
 			# Combine all the pooled features(Flatten step)
 			num_filters_total = sum(self.num_filters)
 			self.h_pool = tf.concat(pooled_outputs, 3)
-			self.h_pool_flatten = tf.reshape(self.h_pool, [-1, num_filters_total])
+			self.h_pool_flatten = tf.reshape(self.h_pool, [-1, num_filters_total])  # one channel for one neuron
 
 # End Convolution... step -----------
 
@@ -108,6 +108,7 @@ class Discriminator(object):
 					name="pooled"
 				)
 				pooled_outputs.append(pooled)
+
 		return pooled_outputs
 
 	def highway(self, input_, size, num_layers=1, bias=-2.0):

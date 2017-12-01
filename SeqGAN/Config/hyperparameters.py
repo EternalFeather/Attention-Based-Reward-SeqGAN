@@ -8,6 +8,8 @@ class Hyperparameter(object):
 	START_TOKEN = 0
 	BATCH_SIZE = 64
 	VOCAB_SIZE = 5000
+	GENERATED_NUM = 10000
+	REAL_DATA_PATH = "Datasets/Real_datasets.txt"
 
 	# Generator
 	EMB_SIZE = 32

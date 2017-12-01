@@ -8,6 +8,7 @@ from SeqGAN.Model.generator import Generator
 from SeqGAN.Model.discriminator import Discriminator
 import pickle
 from SeqGAN.Model.corpus_lstm import Corpus_lstm
+import codecs
 
 
 class SeqGAN(object):
@@ -28,12 +29,22 @@ class SeqGAN(object):
 		generator = Generator(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN,pm.LEARNING_RATE, pm.REWARD_GAMMA)
 		discriminator = Discriminator(pm.SEQ_LENGTH, pm.NUM_CLASSES, pm.VOCAB_SIZE, pm.DIS_EMB_SIZE, pm.FILTER_SIZES, pm.NUM_FILTERS, pm.L2_REG_LAMBDA)
 		target_params = pickle.load(open('SeqGAN/Model/target_params.pkl'))     # Oracle LSTM_model for corpus generation
-		corpus_lstm = Corpus_lstm(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN, pm.TARGET_PARAMS)
+		corpus_lstm = Corpus_lstm(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN, target_params)
 
 		# Generate 1W sequences of length 20 as the training set S for the generator model
+		self.generate_samples(sess, corpus_lstm, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.REAL_DATA_PATH)
+		gen_data_loader.create_batches(pm.REAL_DATA_PATH)
 
-	def generate_samples(self):
-		pass
+	def generate_samples(self, sess, trainable_model, batch_size, generated_num, output_path):
+		generated_samples = []
+		total_num = generated_num // batch_size
+		for _ in range(total_num):
+			generated_samples.extend(trainable_model.generate(sess))
+
+		with codecs.open(output_path, 'w', encoding='utf-8') as fout:
+			for data in generated_samples:
+				buffer = " ".join(str(x) for x in data)  # write in token format
+				fout.write(buffer + '\n')
 
 	def target_loss(self):
 		pass

@@ -78,7 +78,7 @@ class Generator(object):
 
 		# Real-data result of sequence
 		ta_emb_x = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.seq_length, dynamic_size=False, infer_shape=True)
-		ta_emb_x = ta_emb_x.unstack(self.processed_x)
+		ta_emb_x = ta_emb_x.unstack(self.processed_x)   # Gain real data's token embedding
 
 		def _pretrain_recurrence(i, x_t, h_tm, g_predictions):
 			h_t = self.g_lstm_forward(x_t, h_tm)
