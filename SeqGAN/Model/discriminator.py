@@ -50,6 +50,8 @@ class Discriminator(object):
 
 # End Convolution... step -----------
 
+# Some Special Networks -------------
+
 			# Add highway
 			with tf.name_scope("highway"):
 				self.d_highway = self.highway(self.h_pool_flatten, self.h_pool_flatten.get_shape()[1], 1, 0)
@@ -67,6 +69,8 @@ class Discriminator(object):
 				self.scores = tf.nn.xw_plus_b(self.d_dropout, W, b, name="scores")
 				self.ypred_for_auc = tf.nn.softmax(self.scores)
 				self.predictions = tf.argmax(self.scores, 1, name="predictions")
+
+# End Spacial Networks -----------------------
 
 # Config loss and optimizer & update parameters------
 

@@ -27,6 +27,7 @@ class Generator(object):
 			self.g_params.append(self.g_embeddings)     # shape = [1, vocab_size, emb_size]
 			self.g_lstm_forward = self.recurrent_lstm_forward(self.g_params)
 			self.g_linear_forward = self.recurrent_linear_forward(self.g_params)
+
 # Initialize parameters ------------------
 
 		# placeholder
