@@ -9,7 +9,13 @@ class Hyperparameter(object):
 	BATCH_SIZE = 64
 	VOCAB_SIZE = 5000
 	GENERATED_NUM = 10000
+	K = 3
+	TOTAL_BATCHES = 200
+	GIVEN_NUM = 16
+	ADVERSARIAL_DROPOUT = 1.0
 	REAL_DATA_PATH = "Datasets/Real_datasets.txt"
+	PRE_GENERATOR_DATA = "Datasets/Pre_train_generator_datasets.txt"
+	G_NEG_SAMPLING_DATA = "Datasets/Generator_negative_sampling_datasets.txt"
 
 	# Generator
 	EMB_SIZE = 32
@@ -17,6 +23,9 @@ class Hyperparameter(object):
 	SEQ_LENGTH = 20
 	LEARNING_RATE = 0.01
 	REWARD_GAMMA = 0.95
+	G_PRE_TRAIN_EPOCH = 120
+	UPDATE_RATE = 0.8
+	G_STEP = 1
 
 	# Discriminator
 	DIS_EMB_SIZE = 64
@@ -24,4 +33,6 @@ class Hyperparameter(object):
 	FILTER_SIZES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]
 	NUM_FILTERS = [100, 200, 200, 200, 200, 100, 100, 100, 100, 100, 160, 160]
 	L2_REG_LAMBDA = 0.2
+	D_PRE_TRAIN_EPOCH = 50
+	D_DROP_KEEP_PROB = 0.75
 

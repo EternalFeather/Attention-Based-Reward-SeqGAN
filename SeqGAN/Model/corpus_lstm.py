@@ -21,6 +21,8 @@ class Corpus_lstm(object):
 			self.target_lstm_forward = self.recurrent_lstm_forward(self.target_params)
 			self.target_linear_forward = self.recurrent_linear_forward(self.target_params)
 
+# Initialize parameters ------------------
+
 		# placeholder
 		self.x = tf.placeholder(tf.int32, shape=[self.batch_size, self.seq_length])
 
@@ -33,7 +35,11 @@ class Corpus_lstm(object):
 
 		# Initialize target_lstm sequence
 		target_prob = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.seq_length, dynamic_size=False, infer_shape=True)
-		target_token_sequence = tensor_array_ops.TensorArray(dtype=int32, size=self.seq_length, dynamic_size=False, infer_shape=True)
+		target_token_sequence = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.seq_length, dynamic_size=False, infer_shape=True)
+
+# End initialize ------------------
+
+# Forward step -------------------
 
 		def _target_recurrence(i, x_t, h_tm, gen_o, gen_x):
 			h_t = self.target_lstm_forward(x_t, h_tm)
@@ -49,11 +55,15 @@ class Corpus_lstm(object):
 			cond=lambda i, _1, _2, _3, _4: i < self.seq_length,
 			body=_target_recurrence,
 			loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(self.target_embeddings, self.start_token),
-						self.h0, self.target_prob, self.target_token_sequence)
+						self.h0, target_prob, target_token_sequence)
 		)
 
 		self.target_token_sequence = self.target_token_sequence.stack()
 		self.target_token_sequence = tf.transpose(self.target_token_sequence, perm=[1, 0])  # Output a token using softmax distribution random choice, shape = [batch_size, seq_length]
+
+# End Forward step ----------------------
+
+# Pre-train step -------------------------
 
 		# Pre-train for target-lstm
 		target_predictions = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.seq_length, dynamic_size=False, infer_shape=True)
@@ -77,12 +87,20 @@ class Corpus_lstm(object):
 		self.target_predictions = self.target_predictions.stack()
 		self.target_predictions = tf.transpose(self.target_predictions, perm=[1, 0, 2])    # Output a softmax distribution, shape = [batch_size, seq_length, vocab_size]
 
+# End pre-train step -------------------
+
+# Pre-train Loss configuration ----------------
+
 		# Pre-train loss
 		self.loss = -tf.reduce_sum(
 			tf.one_hot(tf.cast(tf.reshape(self.x, [-1]), tf.int32), self.vocab_size, 1.0, 0.0) * tf.log(
 				tf.reshape(self.target_predictions, [-1, self.vocab_size])
 			)
 		) / (self.seq_length * self.batch_size)
+
+# End Setting Pre-train Loss ------------------
+
+# Adversarial Loss configuration ------------------
 
 		# Adversarial learning loss
 		self.target_loss = tf.reduce_sum(
@@ -94,6 +112,8 @@ class Corpus_lstm(object):
 				), [-1, self.seq_length]    # shape = [batch_size, seq_length]
 			), 1    # loss for batch_sequence, shape = [batch_size]
 		)
+
+# End Adversarial Loss ----------------------------
 
 	def generate(self, session):
 		outputs = session.run(self.target_token_sequence)

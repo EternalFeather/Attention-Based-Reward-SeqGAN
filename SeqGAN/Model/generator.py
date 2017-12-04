@@ -27,6 +27,7 @@ class Generator(object):
 			self.g_params.append(self.g_embeddings)     # shape = [1, vocab_size, emb_size]
 			self.g_lstm_forward = self.recurrent_lstm_forward(self.g_params)
 			self.g_linear_forward = self.recurrent_linear_forward(self.g_params)
+
 # Initialize parameters ------------------
 
 		# placeholder
@@ -204,7 +205,13 @@ class Generator(object):
 
 		return forward
 
+	def pretrain_forward(self, sess, x):
+		outputs = sess.run([self.pretrain_updates, self.loss], feed_dict={self.x: x})
+		return outputs
 
+	def generate(self, sess):
+		outputs = sess.run(self.token_sequence)
+		return outputs
 
 
 
