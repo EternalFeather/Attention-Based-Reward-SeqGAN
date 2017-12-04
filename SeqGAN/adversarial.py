@@ -33,7 +33,7 @@ class SeqGAN(object):
 
 		# Generate 1W sequences of length 20 as the training set S for the generator model
 		self.generate_samples(sess, corpus_lstm, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.REAL_DATA_PATH)
-		gen_data_loader.create_batches(pm.REAL_DATA_PATH)
+		gen_data_loader.mini_batches(pm.REAL_DATA_PATH)
 
 	def generate_samples(self, sess, trainable_model, batch_size, generated_num, output_path):
 		generated_samples = []
