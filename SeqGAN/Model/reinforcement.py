@@ -15,9 +15,11 @@ class Reinforcement(object):
 		self.emb_size = self.model.emb_size
 		self.hidden_size = self.model.hidden_size
 		self.seq_length = self.model.seq_length
+
+# Initialize parameters(Load from generator for adversarial training) ------------------
+
 		self.start_token = tf.identity(self.model.start_token)
 		self.learning_rate = tf.identity(self.model.learning_rate)
-
 		self.rl_embeddings = tf.identity(self.model.g_embeddings)
 		self.rl_lstm_forward = self.lstm_forward()
 		self.rl_linear_forward = self.linear_forward()
@@ -39,6 +41,10 @@ class Reinforcement(object):
 		self.h0 = tf.stack([self.h0, self.h0])
 
 		token_sequence = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.seq_length, dynamic_size=False, infer_shape=True)
+
+# End initialize ------------------
+
+# Forward step(Monte-Carlo Model) -------------------
 
 		# When current index i < given_num, use the provided tokens as the input at each time step
 		def _rl_recurrence_1(i, x_t, h_tm, given_num, gen_x):
@@ -72,6 +78,8 @@ class Reinforcement(object):
 
 		self.token_sequence = self.token_sequence.stack()
 		self.token_sequence = tf.transpose(self.token_sequence, perm=[1, 0])    # shape = [batch_size, seq_length]
+
+# End Forward step ----------------------
 
 	def lstm_forward(self):
 		self.Wi = tf.identity(self.model.Wi)

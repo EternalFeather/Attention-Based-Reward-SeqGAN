@@ -19,6 +19,8 @@ class SeqGAN(object):
 		np.random.seed(pm.RANDOM_SEED)
 		assert pm.START_TOKEN == 0
 
+# Initialize models ------------------
+
 		# Init
 		gen_data_loader = Gen_data_loader(pm.BATCH_SIZE)
 		likelihood_data_loader = Gen_data_loader(pm.BATCH_SIZE)     # For Testing
@@ -28,10 +30,18 @@ class SeqGAN(object):
 		target_params = pickle.load(open(pm.MODEL_PATH, 'rb'), encoding='latin1')   # Oracle LSTM_model for corpus generation
 		corpus_lstm = Corpus_lstm(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN, target_params)
 
+# End initialize models --------------
+
+# Config tensorflow session ----------
+
 		config = tf.ConfigProto()
 		config.gpu_options.allow_growth = True
 		sess = tf.Session(config=config)
 		sess.run(tf.global_variables_initializer())
+
+# End session configuration ----------
+
+# Pre-train Generator with real datasets from corpus_lstm model ----------------
 
 		# Generate 1W sequences of length 20 as the training set S for the generator model
 		self.generate_samples(sess, corpus_lstm, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.REAL_DATA_PATH)
@@ -68,6 +78,10 @@ class SeqGAN(object):
 		ax1.set_title('Pre-train Generator')
 		plt.ion()
 
+# End of pre-train Generator ---------------
+
+# Pre-train Discriminator with positive datasets(real) and negative datasets from Generator model ---------------
+
 		# Pre-train Discriminator
 		dis = []
 		temp_min, temp_max = 10000.0, -10000.0
@@ -102,6 +116,12 @@ class SeqGAN(object):
 		ax2.set_ylabel('NLL', fontsize=16)
 		ax2.set_title('Pre-train Discriminator')
 
+# End of pre-train Discriminator --------------------
+
+# Adversarial training between Generator and Discriminator --------------
+
+# Generator update(freezing Discriminator while updating Generator and Monte-Carlo Model one time per epoch) ----------
+
 		reinforcement = Reinforcement(generator, pm.UPDATE_RATE)
 
 		# Adversarial Train
@@ -128,6 +148,10 @@ class SeqGAN(object):
 
 			# Update reinforcement parameters
 			reinforcement.update_params()
+
+# End of updating Generator ---------------
+
+# Discriminator update(freezing Generator while updating Discriminator five times per epoch) -------------
 
 			# Train the discriminator for five step
 			for i in range(pm.D_STEP):
@@ -172,6 +196,8 @@ class SeqGAN(object):
 		plt.show()
 
 		log.close()
+
+# End of updating Discriminator -----------------
 
 	def generate_samples(self, sess, trainable_model, batch_size, generated_num, output_path):
 		generated_samples = []
