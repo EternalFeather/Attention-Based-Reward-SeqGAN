@@ -11,11 +11,14 @@ class Hyperparameter(object):
 	GENERATED_NUM = 10000
 	K = 3
 	TOTAL_BATCHES = 200
-	GIVEN_NUM = 16
+	MONTE_CARLO_TURNS = 16
 	ADVERSARIAL_DROPOUT = 1.0
+	MODEL_PATH = "Model/target_params_py3.pkl"
 	REAL_DATA_PATH = "Datasets/Real_datasets.txt"
 	PRE_GENERATOR_DATA = "Datasets/Pre_train_generator_datasets.txt"
 	G_NEG_SAMPLING_DATA = "Datasets/Generator_negative_sampling_datasets.txt"
+	ADVERSARIAL_G_DATA = "Datasets/Adversarial_generator_sampling_datasets.txt"
+	ADVERSARIAL_NEG_DATA = "Datasets/Adversarial_negative_datasets.txt"
 
 	# Generator
 	EMB_SIZE = 32
@@ -35,4 +38,5 @@ class Hyperparameter(object):
 	L2_REG_LAMBDA = 0.2
 	D_PRE_TRAIN_EPOCH = 50
 	D_DROP_KEEP_PROB = 0.75
+	D_STEP = 5
 

@@ -49,7 +49,7 @@ class Corpus_lstm(object):
 			x_ = tf.nn.embedding_lookup(self.target_embeddings, next_token)
 			gen_o = gen_o.write(i, tf.reduce_sum(tf.multiply(tf.one_hot(next_token, self.vocab_size, 1.0, 0.0), o_t), 1))
 			gen_x = gen_x.write(i, next_token)
-			return i, x_, h_t, gen_o, gen_x
+			return i + 1, x_, h_t, gen_o, gen_x
 
 		_, _, _, self.target_prob, self.target_token_sequence = control_flow_ops.while_loop(
 			cond=lambda i, _1, _2, _3, _4: i < self.seq_length,
@@ -75,7 +75,7 @@ class Corpus_lstm(object):
 			o_t = self.target_linear_forward(h_t)
 			target_predictions = target_predictions.write(i, o_t)
 			x_ = real_x.read(i)
-			return i, x_, h_t, target_predictions
+			return i + 1, x_, h_t, target_predictions
 
 		_, _, _, self.target_predictions = control_flow_ops.while_loop(
 			cond=lambda i, _1, _2, _3: i < self.seq_length,
@@ -115,8 +115,8 @@ class Corpus_lstm(object):
 
 # End Adversarial Loss ----------------------------
 
-	def generate(self, session):
-		outputs = session.run(self.target_token_sequence)
+	def generate(self, sess):
+		outputs = sess.run(self.target_token_sequence)
 		return outputs
 
 	def recurrent_lstm_forward(self, params):
@@ -146,19 +146,19 @@ class Corpus_lstm(object):
 			hidden_state, cell = tf.unstack(hidden_memory)
 
 			i = tf.sigmoid(
-				tf.matmul(x, self.Wi) + tf.matmul(self.Ui, hidden_state) + self.bi
+				tf.matmul(x, self.Wi) + tf.matmul(hidden_state, self.Ui) + self.bi
 			)
 
 			f = tf.sigmoid(
-				tf.matmul(x, self.Wf) + tf.matmul(self.Uf, hidden_state) + self.bf
+				tf.matmul(x, self.Wf) + tf.matmul(hidden_state, self.Uf) + self.bf
 			)
 
 			o = tf.sigmoid(
-				tf.matmul(x, self.Wo) + tf.matmul(self.Uo, hidden_state) + self.bo
+				tf.matmul(x, self.Wo) + tf.matmul(hidden_state, self.Uo) + self.bo
 			)
 
 			c_ = tf.nn.tanh(
-				tf.matmul(x, self.Wc) + tf.matmul(self.Uc, hidden_state) + self.bc
+				tf.matmul(x, self.Wc) + tf.matmul(hidden_state, self.Uc) + self.bc
 			)
 
 			c = f * cell + i * c_
@@ -176,7 +176,7 @@ class Corpus_lstm(object):
 
 		def forward(hidden_memory):
 			hidden_state, cell = tf.unstack(hidden_memory)
-			logits = tf.matmul(self.V, hidden_state) + self.c
+			logits = tf.matmul(hidden_state, self.V) + self.c
 			output = tf.nn.softmax(logits)
 			return output
 

@@ -4,11 +4,6 @@ from tensorflow.python.ops import tensor_array_ops, control_flow_ops
 
 
 class Generator(object):
-	"""
-	A RNN Decoder for sequence generation.
-	Uses an embedding layer, followed by a lstm layer and flatten softmax layer.
-	"""
-
 	def __init__(self, vocab_size, batch_size, emb_size, hidden_size, seq_length, start_token, learning_rate, reward_gamma):
 		self.vocab_size = vocab_size
 		self.batch_size = batch_size
@@ -60,7 +55,7 @@ class Generator(object):
 			gen_x = gen_x.write(i, next_token)  # output_array, shape = [index_num(seq_length), batch_size]
 			return i + 1, x_, h_t, gen_o, gen_x
 
-		_, _, _, self.output_prob_sequence, self.input_sequence = control_flow_ops.while_loop(
+		_, _, _, self.output_prob_sequence, self.token_sequence = control_flow_ops.while_loop(
 			cond=lambda i, _1, _2, _3, _4: i < self.seq_length,
 			body=_g_recurrence,
 			loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(self.g_embeddings, self.start_token),
@@ -166,19 +161,19 @@ class Generator(object):
 			hidden_state, cell = tf.unstack(hidden_memory)
 
 			i = tf.sigmoid(
-				tf.matmul(self.Wi, x) + tf.matmul(self.Ui, hidden_state) + self.bi
+				tf.matmul(x, self.Wi) + tf.matmul(hidden_state, self.Ui) + self.bi
 			)
 
 			f = tf.sigmoid(
-				tf.matmul(self.Wf, x) + tf.matmul(self.Uf, hidden_state) + self.bf
+				tf.matmul(x, self.Wf) + tf.matmul(hidden_state, self.Uf) + self.bf
 			)
 
 			o = tf.sigmoid(
-				tf.matmul(self.Wo, x) + tf.matmul(self.Uo, hidden_state) + self.bo
+				tf.matmul(x, self.Wo) + tf.matmul(hidden_state, self.Uo) + self.bo
 			)
 
 			c_ = tf.nn.tanh(
-				tf.matmul(self.Wc, x) + tf.matmul(self.Uc, hidden_state) + self.bc
+				tf.matmul(x, self.Wc) + tf.matmul(hidden_state, self.Uc) + self.bc
 			)
 
 			c = f * cell + i * c_

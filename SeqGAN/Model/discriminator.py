@@ -3,10 +3,6 @@ import tensorflow as tf
 
 
 class Discriminator(object):
-	"""
-	A CNN for text classification.
-	Uses an embedding layer, followed by a conversational, max-pooling and softmax layer.
-	"""
 	def __init__(self, seq_length, num_classes, vocab_size, emb_size, filter_sizes, num_filters, l2_reg_lambda):
 		self.seq_length = seq_length
 		self.num_classes = num_classes
@@ -116,12 +112,7 @@ class Discriminator(object):
 		return pooled_outputs
 
 	def highway(self, input_, size, num_layers=1, bias=-2.0):
-		"""
-		Highway Network (cf. http://arxiv.org/abs/1505.00387).
-		t = sigmoid(Wy + b)
-        z = t * g(Wy + b) + (1 - t) * y
-		where g is nonlinearity, t is transform gate, and (1 - t) is carry gate.
-		"""
+		output = 0.0
 		with tf.variable_scope("highway"):
 			for idx in range(num_layers):
 				g = tf.nn.relu(self.linear(input_, size, scope="highway_linear_%d" % idx))

@@ -129,12 +129,89 @@ class Reinforcement(object):
 
 		return forward
 
-	def get_reward(self, sess, x, rollout_num, discriminator):
+	def get_reward(self, sess, x, monte_carlo_turns, discriminator):
 		rewards = []
-		for i in range(rollout_num):
+		for i in range(monte_carlo_turns):
 			for given_num in range(1, 20):
 				samples = sess.run(self.token_sequence, feed_dict={self.x: x, self.given_num: given_num})
 				ypred_for_auc = sess.run(discriminator.ypred_for_auc, feed_dict={discriminator.x: samples, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
-				ypred = np.array([item[1] for item in ypred_for_auc])
+				ypred = np.array([item[1] for item in ypred_for_auc])   # prob of positive
+				if i == 0:
+					rewards.append(ypred)
+				else:
+					rewards[given_num - 1] += ypred     # shape = [seq_length * batch_size]
+
+			# The last token reward is from the whole sequence reward
+			ypred_for_auc = sess.run(discriminator.ypred_for_auc, feed_dict={discriminator.x: x, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
+			ypred = np.array([item[1] for item in ypred_for_auc])
+			if i == 0:
+				rewards.append(ypred)
+			else:
+				rewards[19] += ypred
+
+		rewards = np.transpose(np.array(rewards)) / (1.0 * monte_carlo_turns)   # shape = [batch_size * seq_length]
+		return rewards
+
+	def update_params(self):
+		self.rl_embeddings = tf.identity(self.model.g_embeddings)
+		self.rl_lstm_forward = self.update_lstm_forward()
+		self.rl_linear_forward = self.update_linear_forward()
+
+	def update_lstm_forward(self):
+		# Update Weights and Bias for input and hidden tensor with cross_entropy
+		self.Wi = self.update_rate * self.Wi + (1 - self.update_rate) * tf.identity(self.model.Wi)
+		self.Ui = self.update_rate * self.Ui + (1 - self.update_rate) * tf.identity(self.model.Ui)
+		self.bi = self.update_rate * self.bi + (1 - self.update_rate) * tf.identity(self.model.bi)
+
+		self.Wf = self.update_rate * self.Wf + (1 - self.update_rate) * tf.identity(self.model.Wf)
+		self.Uf = self.update_rate * self.Uf + (1 - self.update_rate) * tf.identity(self.model.Uf)
+		self.bf = self.update_rate * self.bf + (1 - self.update_rate) * tf.identity(self.model.bf)
+
+		self.Wo = self.update_rate * self.Wo + (1 - self.update_rate) * tf.identity(self.model.Wo)
+		self.Uo = self.update_rate * self.Uo + (1 - self.update_rate) * tf.identity(self.model.Uo)
+		self.bo = self.update_rate * self.bo + (1 - self.update_rate) * tf.identity(self.model.bo)
+
+		self.Wc = self.update_rate * self.Wc + (1 - self.update_rate) * tf.identity(self.model.Wc)
+		self.Uc = self.update_rate * self.Uc + (1 - self.update_rate) * tf.identity(self.model.Uc)
+		self.bc = self.update_rate * self.bc + (1 - self.update_rate) * tf.identity(self.model.bc)
+
+		def forward(x, hidden_memory):
+			hidden_state, cell = tf.unstack(hidden_memory)
+
+			i = tf.sigmoid(
+				tf.matmul(x, self.Wi) + tf.matmul(hidden_state, self.Ui) + self.bi
+			)
+
+			f = tf.sigmoid(
+				tf.matmul(x, self.Wf) + tf.matmul(hidden_state, self.Uf) + self.bf
+			)
+
+			o = tf.sigmoid(
+				tf.matmul(x, self.Wo) + tf.matmul(hidden_state, self.Uo) + self.bo
+			)
+
+			c_ = tf.nn.tanh(
+				tf.matmul(x, self.Wc) + tf.matmul(hidden_state, self.Uc) + self.bc
+			)
+
+			c = f * cell + i * c_
+
+			current_hidden_state = o * tf.nn.tanh(c)
+
+			return tf.stack([current_hidden_state, c])
+
+		return forward
+
+	def update_linear_forward(self):
+		self.V = self.update_rate * self.V + (1 - self.update_rate) * tf.identity(self.model.V)
+		self.c = self.update_rate * self.c + (1 - self.update_rate) * tf.identity(self.model.c)
+
+		def forward(hidden_memory):
+			hidden_state, cell = tf.unstack(hidden_memory)
+			logits = tf.matmul(hidden_state, self.V) + self.c
+			output = tf.nn.softmax(logits)
+			return output
+
+		return forward
 
 

@@ -19,19 +19,19 @@ class SeqGAN(object):
 		np.random.seed(pm.RANDOM_SEED)
 		assert pm.START_TOKEN == 0
 
-		config = tf.ConfigProto()
-		config.gpu_options.allow_growth = True
-		sess = tf.Session(config=config)
-		sess.run(tf.global_variables_initializer())
-
 		# Init
 		gen_data_loader = Gen_data_loader(pm.BATCH_SIZE)
 		likelihood_data_loader = Gen_data_loader(pm.BATCH_SIZE)     # For Testing
 		dis_data_loader = Dis_data_loader(pm.BATCH_SIZE)
 		generator = Generator(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN,pm.LEARNING_RATE, pm.REWARD_GAMMA)
 		discriminator = Discriminator(pm.SEQ_LENGTH, pm.NUM_CLASSES, pm.VOCAB_SIZE, pm.DIS_EMB_SIZE, pm.FILTER_SIZES, pm.NUM_FILTERS, pm.L2_REG_LAMBDA)
-		target_params = pickle.load(open("SeqGAN/Model/target_params.pkl"))     # Oracle LSTM_model for corpus generation
+		target_params = pickle.load(open(pm.MODEL_PATH, 'rb'), encoding='latin1')   # Oracle LSTM_model for corpus generation
 		corpus_lstm = Corpus_lstm(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN, target_params)
+
+		config = tf.ConfigProto()
+		config.gpu_options.allow_growth = True
+		sess = tf.Session(config=config)
+		sess.run(tf.global_variables_initializer())
 
 		# Generate 1W sequences of length 20 as the training set S for the generator model
 		self.generate_samples(sess, corpus_lstm, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.REAL_DATA_PATH)
@@ -40,62 +40,138 @@ class SeqGAN(object):
 		log = codecs.open("Log/experiment-log.txt", 'w', encoding='utf-8')
 
 		# Pre-train Generator
-		temp = []
+		gen = []
 		print("MSG : Start Pre-train Generator...")
 		log.write("Pre-train Generator...\n")
+		log.flush()
 		for epoch in range(pm.G_PRE_TRAIN_EPOCH):
 			pretrain_loss = self.gen_pre_train_loss(sess, generator, gen_data_loader)
 			if epoch % 5 == 0:
 				self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.PRE_GENERATOR_DATA)
 				likelihood_data_loader.mini_batches(pm.PRE_GENERATOR_DATA)
 				test_loss = self.target_loss(sess, corpus_lstm, likelihood_data_loader)
-				temp.append(test_loss)
-				print("Pre-train Gen epoch: {}, Test_loss: {}, Pretrain_loss: {}".format(epoch + 1, test_loss, pretrain_loss))
-				buffer = "Pre-train Generator Epoch:\t{}\tNLL:\t{}\tGenerator_Loss:{}\n".format(str(epoch + 1), str(test_loss), str(pretrain_loss))
+				gen.append(test_loss)
+				print("Pre-train Gen Epoch: {}, Test_loss(NLL): {}, Pretrain_loss: {}".format(epoch, test_loss, pretrain_loss))
+				buffer = "Pre-train Generator Epoch:\t{}\tNLL:\t{}\tGenerator_Loss:{}\n".format(str(epoch), str(test_loss), str(pretrain_loss))
 				log.write(buffer)
+				log.flush()
 
-		plt.figure()
-		plt.plot(temp)
+		# plt.figure()
+		# plt.title("Pre-train Generator")
+		# plt.plot(gen)
+		# plt.ion()
+		# plt.show()
+		fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+		ax1.plot(gen)
+		ax1.set_xlabel('Time Step', fontsize=16)
+		ax1.set_ylabel('NLL', fontsize=16)
+		ax1.set_title('Pre-train Generator')
 		plt.ion()
-		plt.show()
 
 		# Pre-train Discriminator
-		temp = []
+		dis = []
+		temp_min, temp_max = 10000.0, -10000.0
 		print("MSG : Start Pre-train Discriminator...")
 		log.write("Pre-train Discriminator...\n")
+		log.flush()
 		for epoch in range(pm.D_PRE_TRAIN_EPOCH):
 			self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.G_NEG_SAMPLING_DATA)
 			dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.G_NEG_SAMPLING_DATA)
-			test_loss = 0.0
 			for _ in range(pm.K):
 				test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
+				if test_loss < temp_min:
+					temp_min = test_loss
+				if test_loss > temp_max:
+					temp_max = test_loss
 
 			if epoch % 5 == 0:
-				temp.append(test_loss)
-				print("Pre-train Dis epoch: {}, Test_loss: {}".format(epoch + 1, test_loss))
-				buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch + 1), str(test_loss))
+				dis.append(test_loss)
+				print("Pre-train Dis Epoch: {}, Test_loss(NLL): {}".format(epoch, test_loss))
+				buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch), str(test_loss))
 				log.write(buffer)
+				log.flush()
 
-		plt.figure()
-		plt.plot(temp)
-		plt.ion()
-		plt.show()
+		dis = self.normalize(dis, temp_min, temp_max)
+		# plt.figure()
+		# plt.title("Pre-train Discriminator")
+		# plt.plot(dis)
+		# plt.ion()
+		# plt.show()
+		ax2.plot(dis)
+		ax2.set_xlabel('Time Step', fontsize=16)
+		ax2.set_ylabel('NLL', fontsize=16)
+		ax2.set_title('Pre-train Discriminator')
 
 		reinforcement = Reinforcement(generator, pm.UPDATE_RATE)
 
 		# Adversarial Train
 		print("MSG : Start Adversarial Training...")
 		log.write("Adversarial Training...\n")
+		log.flush()
 		for total_batch in range(pm.TOTAL_BATCHES):
 			# Train the generator for one step
 			for i in range(pm.G_STEP):
 				samples = generator.generate(sess)
-				rewards = reinforcement.get_reward(sess, samples, pm.GIVEN_NUM, discriminator)
+				rewards = reinforcement.get_reward(sess, samples, pm.MONTE_CARLO_TURNS, discriminator)
+				_ = sess.run(generator.g_updates, feed_dict={generator.x: samples, generator.rewards: rewards})
 
+			# Testing the result for each batch
+			if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
+				self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.ADVERSARIAL_G_DATA)
+				likelihood_data_loader.mini_batches(pm.ADVERSARIAL_G_DATA)
+				test_loss = self.target_loss(sess, corpus_lstm, likelihood_data_loader)
+				gen.append(test_loss)
+				buffer = "Adversarial Epoch:\t{}\tG_NLL:\t{}\n".format(str(total_batch), str(test_loss))
+				print("Adversarial Epoch: [{}/{}], GEN_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
+				log.write(buffer)
+				log.flush()
 
+			# Update reinforcement parameters
+			reinforcement.update_params()
 
+			# Train the discriminator for five step
+			for i in range(pm.D_STEP):
+				self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.ADVERSARIAL_NEG_DATA)
+				dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.ADVERSARIAL_NEG_DATA)
+				for _ in range(pm.K):
+					test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
+					if test_loss < temp_min:
+						temp_min = test_loss
+					if test_loss > temp_max:
+						temp_max = test_loss
 
+			if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
+				dis.append(test_loss)
+				print("Adversarial Epoch: [{}/{}], DIS_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
+				buffer = "Adversarial Epoch:\t{}\tD_NLL:\t{}\n".format(str(total_batch), str(test_loss))
+				log.write(buffer)
+				log.flush()
 
+		dis = self.normalize(dis, temp_min, temp_max)
+		# plt.figure()
+		# plt.title("Adversarial Generator")
+		# plt.plot(gen)
+		# plt.ion()
+		# plt.show()
+		#
+		# plt.figure()
+		# plt.title("Adversarial Discriminator")
+		# plt.plot(dis)
+		# plt.ion()
+		# plt.show()
+		ax3.plot(gen)
+		ax3.set_xlabel('Time Step', fontsize=16)
+		ax3.set_ylabel('NLL', fontsize=16)
+		ax3.set_title('Adversarial Generator')
+
+		ax4.plot(dis)
+		ax4.set_xlabel('Time Step', fontsize=16)
+		ax4.set_ylabel('NLL', fontsize=16)
+		ax4.set_title('Adversarial Discriminator')
+		plt.tight_layout()
+		plt.show()
+
+		log.close()
 
 	def generate_samples(self, sess, trainable_model, batch_size, generated_num, output_path):
 		generated_samples = []
@@ -136,10 +212,14 @@ class SeqGAN(object):
 
 		for i in range(data_loader.num_batch):
 			x_batch, y_batch = data_loader.next_batch()
-			_, d_loss = sess.run(trainable_model.pretrain_forward(sess, x_batch, y_batch, pm.D_DROP_KEEP_PROB))
+			_, d_loss = trainable_model.pretrain_forward(sess, x_batch, y_batch, pm.D_DROP_KEEP_PROB)
 			supervised_d_losses.append(d_loss)
 
 		return np.mean(supervised_d_losses)
+
+	def normalize(self, temp_list, temp_min, temp_max):
+		output = [((i - temp_min) / (temp_max - temp_min)) for i in temp_list]
+		return output
 
 if __name__ == '__main__':
 	model = SeqGAN()
