@@ -2,7 +2,7 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.python.ops import tensor_array_ops, control_flow_ops
-from Attention_Based_Reward_SeqGAN.Config.hyperparameters import Hyperparameter as pm
+from Config.hyperparameters import Hyperparameter as pm
 
 
 class Reinforcement(object):

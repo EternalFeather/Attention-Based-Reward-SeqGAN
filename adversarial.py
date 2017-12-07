@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 import random
-from Attention_Based_Reward_SeqGAN.Config.hyperparameters import Hyperparameter as pm
+from Config.hyperparameters import Hyperparameter as pm
 import numpy as np
 import tensorflow as tf
-from Attention_Based_Reward_SeqGAN.Datasets.data_loader import Gen_data_loader, Dis_data_loader
-from Attention_Based_Reward_SeqGAN.Model.generator import Generator
-from Attention_Based_Reward_SeqGAN.Model.discriminator import Discriminator
+from Datasets.data_loader import Gen_data_loader, Dis_data_loader
+from Model.generator import Generator
+from Model.discriminator import Discriminator
 import pickle
-from Attention_Based_Reward_SeqGAN.Model.corpus_lstm import Corpus_lstm
-from Attention_Based_Reward_SeqGAN.Model.reinforcement import Reinforcement
+from Model.corpus_lstm import Corpus_lstm
+from Model.reinforcement import Reinforcement
 import codecs
 import matplotlib.pyplot as plt
 
