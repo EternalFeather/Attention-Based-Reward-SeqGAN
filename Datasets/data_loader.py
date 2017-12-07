@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import numpy as np
 import codecs
-from SeqGAN.Config.hyperparameters import Hyperparameter as pm
+from Attention_Based_Reward_SeqGAN.Config.hyperparameters import Hyperparameter as pm
 
 
 class Gen_data_loader():

@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 import random
-from SeqGAN.Config.hyperparameters import Hyperparameter as pm
+from Attention_Based_Reward_SeqGAN.Config.hyperparameters import Hyperparameter as pm
 import numpy as np
 import tensorflow as tf
-from SeqGAN.Datasets.data_loader import Gen_data_loader, Dis_data_loader
-from SeqGAN.Model.generator import Generator
-from SeqGAN.Model.discriminator import Discriminator
+from Attention_Based_Reward_SeqGAN.Datasets.data_loader import Gen_data_loader, Dis_data_loader
+from Attention_Based_Reward_SeqGAN.Model.generator import Generator
+from Attention_Based_Reward_SeqGAN.Model.discriminator import Discriminator
 import pickle
-from SeqGAN.Model.corpus_lstm import Corpus_lstm
-from SeqGAN.Model.reinforcement import Reinforcement
+from Attention_Based_Reward_SeqGAN.Model.corpus_lstm import Corpus_lstm
+from Attention_Based_Reward_SeqGAN.Model.reinforcement import Reinforcement
 import codecs
 import matplotlib.pyplot as plt
 
@@ -66,17 +66,8 @@ class SeqGAN(object):
 				log.write(buffer)
 				log.flush()
 
-		# plt.figure()
-		# plt.title("Pre-train Generator")
-		# plt.plot(gen)
-		# plt.ion()
-		# plt.show()
-		fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
-		ax1.plot(gen)
-		ax1.set_xlabel('Time Step', fontsize=16)
-		ax1.set_ylabel('NLL', fontsize=16)
-		ax1.set_title('Pre-train Generator')
-		plt.ion()
+		pretrain_fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+		self.matplotformat(ax1, gen, 'Pre-train Generator', pm.G_PRE_TRAIN_EPOCH)
 
 # End of pre-train Generator ---------------
 
@@ -105,16 +96,8 @@ class SeqGAN(object):
 				log.write(buffer)
 				log.flush()
 
-		dis = self.normalize(dis, temp_min, temp_max)
-		# plt.figure()
-		# plt.title("Pre-train Discriminator")
-		# plt.plot(dis)
-		# plt.ion()
-		# plt.show()
-		ax2.plot(dis)
-		ax2.set_xlabel('Time Step', fontsize=16)
-		ax2.set_ylabel('NLL', fontsize=16)
-		ax2.set_title('Pre-train Discriminator')
+		dis_norm = self.normalize(dis, temp_min, temp_max)
+		self.matplotformat(ax2, dis_norm, 'Pre-train Discriminator', pm.D_PRE_TRAIN_EPOCH)
 
 # End of pre-train Discriminator --------------------
 
@@ -171,31 +154,14 @@ class SeqGAN(object):
 				log.write(buffer)
 				log.flush()
 
-		dis = self.normalize(dis, temp_min, temp_max)
-		# plt.figure()
-		# plt.title("Adversarial Generator")
-		# plt.plot(gen)
-		# plt.ion()
-		# plt.show()
-		#
-		# plt.figure()
-		# plt.title("Adversarial Discriminator")
-		# plt.plot(dis)
-		# plt.ion()
-		# plt.show()
-		ax3.plot(gen)
-		ax3.set_xlabel('Time Step', fontsize=16)
-		ax3.set_ylabel('NLL', fontsize=16)
-		ax3.set_title('Adversarial Generator')
-
-		ax4.plot(dis)
-		ax4.set_xlabel('Time Step', fontsize=16)
-		ax4.set_ylabel('NLL', fontsize=16)
-		ax4.set_title('Adversarial Discriminator')
+		ad_dis_norm = self.normalize(dis, temp_min, temp_max)
+		self.matplotformat(ax3, gen, 'Adversarial Generator', pm.G_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
+		self.matplotformat(ax4, ad_dis_norm, 'Adversarial Discriminator', pm.D_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
 		plt.tight_layout()
 		plt.show()
 
 		log.close()
+		print("MSG : Done!")
 
 # End of updating Discriminator -----------------
 
@@ -246,6 +212,15 @@ class SeqGAN(object):
 	def normalize(self, temp_list, temp_min, temp_max):
 		output = [((i - temp_min) / (temp_max - temp_min)) for i in temp_list]
 		return output
+
+	def matplotformat(self, ax, plot_y, plot_name, x_max):
+		plt.sca(ax)
+		plot_x = [i * 5 for i in range(len(plot_y))]
+		plt.xticks(np.linspace(0, x_max, (x_max // 50) + 1, dtype=np.int32))
+		plt.xlabel('Epochs', fontsize=16)
+		plt.ylabel('NLL by oracle', fontsize=16)
+		plt.title(plot_name)
+		plt.plot(plot_x, plot_y)
 
 if __name__ == '__main__':
 	model = SeqGAN()

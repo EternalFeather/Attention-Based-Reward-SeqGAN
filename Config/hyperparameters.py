@@ -10,7 +10,7 @@ class Hyperparameter(object):
 	VOCAB_SIZE = 5000
 	GENERATED_NUM = 10000
 	K = 3
-	TOTAL_BATCHES = 200
+	TOTAL_BATCHES = 50
 	MONTE_CARLO_TURNS = 16
 	ADVERSARIAL_DROPOUT = 1.0
 	MODEL_PATH = "Model/target_params_py3.pkl"
@@ -26,7 +26,7 @@ class Hyperparameter(object):
 	SEQ_LENGTH = 20
 	LEARNING_RATE = 0.01
 	REWARD_GAMMA = 0.95
-	G_PRE_TRAIN_EPOCH = 120
+	G_PRE_TRAIN_EPOCH = 200
 	UPDATE_RATE = 0.8
 	G_STEP = 1
 
