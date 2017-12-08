@@ -3,13 +3,17 @@
     <words>
       <w>conv</w>
       <w>datasets</w>
+      <w>dequeue</w>
       <w>logits</w>
       <w>lstm</w>
       <w>nonlinearity</w>
       <w>pretrain</w>
       <w>relu</w>
+      <w>sents</w>
       <w>softmax</w>
       <w>unnormalized</w>
+      <w>xtoken</w>
+      <w>ytoken</w>
     </words>
   </dictionary>
 </component>
