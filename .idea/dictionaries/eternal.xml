@@ -6,10 +6,12 @@
       <w>dequeue</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>networds</w>
       <w>nonlinearity</w>
       <w>pretrain</w>
       <w>relu</w>
       <w>sents</w>
+      <w>sinpos</w>
       <w>softmax</w>
       <w>unnormalized</w>
       <w>xtoken</w>
