@@ -4,16 +4,21 @@
       <w>conv</w>
       <w>datasets</w>
       <w>dequeue</w>
+      <w>diag</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>multihead</w>
       <w>networds</w>
       <w>nonlinearity</w>
+      <w>paddings</w>
       <w>pretrain</w>
       <w>relu</w>
       <w>sents</w>
       <w>sinpos</w>
       <w>softmax</w>
+      <w>tril</w>
       <w>unnormalized</w>
+      <w>vals</w>
       <w>xtoken</w>
       <w>ytoken</w>
     </words>

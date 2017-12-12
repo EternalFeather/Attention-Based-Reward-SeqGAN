@@ -18,4 +18,5 @@ class Params(object):
 	LEARNING_RATE = 0.0001
 	HIDDEN_UNITS = 512
 	DROPOUT_RATE = 0.1
+	NUM_HEADS = 8
 

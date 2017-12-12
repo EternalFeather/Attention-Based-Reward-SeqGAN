@@ -41,7 +41,7 @@ class Transformer(object):
 															num_units=pm.HIDDEN_UNITS,
 															zero_pad=False,
 															scale=False,
-															scope="Positional_Encoding")
+															scope="En_Positional_Encoding")
 
 			# Dropout
 			self.encoder = tf.layers.dropout(self.encoder,
@@ -61,30 +61,56 @@ class Transformer(object):
 																	mask=False)
 
 					# Feed Forward
-					self.encoder = self.models.feedforward()
+					self.encoder = self.models.feedforward(self.encoder,
+															num_units=(4 * pm.HIDDEN_UNITS, pm.HIDDEN_UNITS))
 
 		# Decoder
 		with tf.variable_scope("decoder"):
-			# Input Embedding
-			self.decoder = self.models.embedding()
+			# Output Embedding
+			self.decoder = self.models.embedding(self.decoder_inputs,
+												vocab_size=len(self.en2idx),
+												num_units=pm.HIDDEN_UNITS,
+												scale=True,
+												scope="Output_embedding")
 
 			# Positional Encoding
-			self.decoder += self.models.positional_encoding()
+			self.decoder += self.models.positional_encoding(self.decoder_inputs,
+															num_units=pm.HIDDEN_UNITS,
+															zero_pad=False,
+															scale=False,
+															scope="De_Positional_Encoding")
 
 			# Dropout
-			self.decoder = tf.layers.dropout()
+			self.decoder = tf.layers.dropout(self.decoder,
+											rate=pm.DROPOUT_RATE,
+											training=tf.convert_to_tensor(trainable))
 
 			# Body_networks
 			for num in range(pm.DECODER_N):
 				with tf.variable_scope("decoder_networks_{}".format(num)):
 					# Multi-Head Attention with Mask(self-attention)
-					self.decoder = self.models.multihead_attention()
+					self.decoder = self.models.multihead_attention(queries=self.decoder,
+																	keys=self.decoder,
+																	num_units=pm.HIDDEN_UNITS,
+																	num_heads=pm.NUM_HEADS,
+																	dropout_rate=pm.DROPOUT_RATE,
+																	is_training=trainable,
+																	mask=True,
+																	scope="De_Multihead_Attention")
 
 					# Multi-Head Attention(vanilla attention)
-					self.decoder = self.models.multihead_attention()
+					self.decoder = self.models.multihead_attention(queries=self.decoder,
+																	keys=self.decoder,
+																	num_units=pm.HIDDEN_UNITS,
+																	num_heads=pm.NUM_HEADS,
+																	dropout_rate=pm.DROPOUT_RATE,
+																	is_training=trainable,
+																	mask=False,
+																	scope="De_Vanilla_Attention")
 
 					# Feed Forward
-					self.decoder = self.models.feedforward()
+					self.decoder = self.models.feedforward(self.decoder,
+															num_units=[4 * pm.HIDDEN_UNITS, pm.HIDDEN_UNITS])
 
 		# Linear & Softmax
 		self.logits = tf.layers.dense(self.decoder, len(self.en2idx))
@@ -98,7 +124,7 @@ class Transformer(object):
 		# Compile
 		if trainable:
 			# Loss
-			self.y_smoothed = self.models.label_smoothing()
+			self.y_smoothed = self.models.label_smoothing(tf.one_hot(self.y, depth=len(self.en2idx)))
 			self.loss = tf.nn.softmax_cross_entropy_with_logits(logits=self.logits, labels=self.y_smoothed)
 			self.mean_loss = tf.reduce_mean(self.loss * self.is_target) / (tf.reduce_sum(self.is_target))
 
