@@ -3,6 +3,9 @@ import tensorflow as tf
 from transformer.data_loader import Data_helper
 from transformer.params import Params as pm
 from transformer.modules import Model
+from tqdm import tqdm
+import codecs, os
+from collections import Counter
 
 
 class Transformer(object):
@@ -21,7 +24,7 @@ class Transformer(object):
 		start_token = tf.ones([pm.BATCH_SIZE, 1], dtype=tf.int32) * 2
 		self.decoder_inputs = tf.concat((start_token, self.y[:, :-1]), -1)
 
-		# Load Vocabulary
+		# Load vocabulary
 		self.de2idx, self.idx2de = self.data_loader.load_vocab(pm.DECODER_VOCAB)
 		self.en2idx, self.idx2en = self.data_loader.load_vocab(pm.ENCODER_VOCAB)
 
@@ -129,9 +132,44 @@ class Transformer(object):
 			self.mean_loss = tf.reduce_mean(self.loss * self.is_target) / (tf.reduce_sum(self.is_target))
 
 			# Optimizer
-			self.global_step = tf.Variable(0, name="global_step", trainable=False)
+			self.global_step = tf.Variable(0, name="global_step", trainable=False)  # when it is passed in the minimize() argument list ,the variable is increased by one
 			self.optimizer = tf.train.AdamOptimizer(learning_rate=pm.LEARNING_RATE, beta1=0.9, beta2=0.98, epsilon=1e-8).minimize(self.mean_loss, global_step=self.global_step)
 
 			# Summary
 			tf.summary.scalar("mean_loss", self.mean_loss)
 			self.merged_summary = tf.summary.merge_all()
+
+
+def preprocess(path, fname):
+	files = codecs.open(path, 'r', encoding='utf-8').read()
+	words = files.split().strip('\n')
+	wordcount = Counter(words)
+
+
+
+if __name__ == '__main__':
+	data_loader = Data_helper()
+	# Load vocabulary
+	en2idx, idx2en = data_loader.load_vocab(pm.ENCODER_VOCAB)
+	de2idx, idx2de = data_loader.load_vocab(pm.DECODER_VOCAB)
+
+	# Construct model
+	model = Transformer()
+	print("MSG : Transformer ready!")
+	saver = tf.train.Saver()
+	init = tf.global_variables_initializer()
+
+	# Start training
+	sv = tf.train.Supervisor(logdir=pm.LOGDIR, init_op=init)
+	saver = sv.saver
+	with sv.managed_session() as sess:
+		for epoch in range(1, pm.NUM_EPOCH):
+			if sv.should_stop():
+				break
+			for step in tqdm(range(model.num_batch), total=model.num_batch, ncols=70, leave=False, unit='b'):
+				sess.run(model.optimizer)
+
+			gs = sess.run(model.global_step)
+			sv.saver.save(sess, pm.LOGDIR + "/model_epoch_{}_global_step_{}".format(epoch, gs))
+
+	print("MSG : Done!")

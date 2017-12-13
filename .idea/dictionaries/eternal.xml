@@ -5,6 +5,7 @@
       <w>datasets</w>
       <w>dequeue</w>
       <w>diag</w>
+      <w>logdir</w>
       <w>logits</w>
       <w>lstm</w>
       <w>multihead</w>

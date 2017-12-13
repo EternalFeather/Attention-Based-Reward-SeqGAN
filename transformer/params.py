@@ -7,8 +7,8 @@ class Params(object):
 	TARGET_TRAIN = "corpora/train_tgt.txt"
 	SOURCE_TEST = "corpora/test_src.txt"
 	TARGET_TEST = "corpora/test_tgt.txt"
-	DECODER_VOCAB = "Vocabulary/de.vocab.tsv"
-	ENCODER_VOCAB = "Vocabulary/en.vocab.tsv"
+	DECODER_VOCAB = "vocabulary/de.vocab.tsv"
+	ENCODER_VOCAB = "vocabulary/en.vocab.tsv"
 
 	BATCH_SIZE = 32
 	SEQ_LEN = 10
@@ -19,4 +19,6 @@ class Params(object):
 	HIDDEN_UNITS = 512
 	DROPOUT_RATE = 0.1
 	NUM_HEADS = 8
+	LOGDIR = "logdir"
+	NUM_EPOCH = 20
 
