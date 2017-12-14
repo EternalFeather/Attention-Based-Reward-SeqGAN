@@ -5,9 +5,12 @@
       <w>datasets</w>
       <w>dequeue</w>
       <w>diag</w>
+      <w>feedforward</w>
+      <w>fname</w>
       <w>logdir</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>mname</w>
       <w>multihead</w>
       <w>networds</w>
       <w>nonlinearity</w>

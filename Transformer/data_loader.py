@@ -3,26 +3,27 @@ import codecs
 import numpy as np
 import sys
 import tensorflow as tf
-from transformer.params import Params as pm
+from Transformer.params import Params as pm
 
 
 class Data_helper(object):
 	def __init__(self):
-		self.num_batch = 0
+		self.train_num_batch = 0
+		self.test_num_batch = 0
+		self.pointer = 0
 		self.vocab = []
 		self.en_sents, self.de_sents = [], []
 		self.xtoken_list, self.ytoken_list, self.Source, self.Targets = [], [], [], []
 		self.word2idx, self.idx2word = {}, {}
-		self.X, self.Y = np.array([]), np.array([])
 
 	def mini_batch(self):
-		self.X, self.Y, _, _ = self.load_datasets("train")
-		self.num_batch = len(self.X) // pm.BATCH_SIZE
-		self.X = tf.convert_to_tensor(self.X, tf.int32)
-		self.Y = tf.convert_to_tensor(self.Y, tf.int32)
+		X, Y, _, _ = self.load_datasets("train")
+		self.train_num_batch = len(X) // pm.BATCH_SIZE
+		X = tf.convert_to_tensor(X, tf.int32)
+		Y = tf.convert_to_tensor(Y, tf.int32)
 
 		# Input Queue by CPU
-		input_queues = tf.train.slice_input_producer([self.X, self.Y])
+		input_queues = tf.train.slice_input_producer([X, Y])
 		# Get mini batch from Queue
 		x, y = tf.train.shuffle_batch(input_queues,
 									num_threads=8,
@@ -31,7 +32,7 @@ class Data_helper(object):
 									min_after_dequeue=pm.BATCH_SIZE * 32,   # Min_number of batches in queue after dequeue
 									allow_smaller_final_batch=False)
 
-		return x, y, self.num_batch
+		return x, y, self.train_num_batch
 
 	def load_datasets(self, type_name):
 		if type_name == "train":
@@ -70,11 +71,21 @@ class Data_helper(object):
 		return x_np, y_np, self.Source, self.Targets
 
 	def load_vocab(self, file):
-		self.vocab = [line.split('\t')[0] for line in codecs.open(file, 'r', encoding='utf-8').read().splitlines() if int(line.split()[1]) >= pm.MIN_WORD_COUNT]
+		self.vocab = [line.split()[0] for line in codecs.open(file, 'r', encoding='utf-8').read().splitlines() if int(line.split()[1]) >= pm.MIN_WORD_COUNT]
 		self.word2idx = {word: idx for idx, word in enumerate(self.vocab)}
 		self.idx2word = {self.word2idx[word]: word for word in self.word2idx}
 
 		return self.word2idx, self.idx2word
 
+	def next(self):
+		X, _, Sources, Targets = self.load_datasets("test")
+		self.test_num_batch = len(X) // pm.BATCH_SIZE
+		x = X[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
+		sources = Sources[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
+		targets = Targets[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
+		self.pointer = (self.pointer + 1) % self.test_num_batch
+		return x, sources, targets
 
-
+	def reset_pointer(self):
+		self.pointer = 0
+		return self.test_num_batch

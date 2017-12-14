@@ -7,28 +7,32 @@ class Model(object):
 	def __init__(self):
 		self.model_num = 0
 
-	def embedding(self, inputs, vocab_size, num_units, zero_pad=True, scale=True, scope="Input_Embedding", reuse=None):
+	def embedding(self, inputs, vocab_size, num_units, zero_pad=True, scale=True, scope="input_embedding", reuse=None):
 		with tf.variable_scope(scope, reuse=reuse):
-			embeddings = tf.Variable(tf.random_uniform([vocab_size, num_units], -1.0, 1.0), name="look_up")
+			# embeddings = tf.Variable(tf.random_uniform([vocab_size, num_units], -1.0, 1.0), name="look_up", dtype=tf.float32)
+			embeddings = tf.get_variable('embeddings',
+										dtype=tf.float32,
+										shape=[vocab_size, num_units],
+										initializer=tf.contrib.layers.xavier_initializer())
 
 			if zero_pad:
 				embeddings = tf.concat((tf.zeros(shape=[1, num_units]), embeddings[1:, :]), 0)
 			outputs = tf.nn.embedding_lookup(embeddings, inputs)
 
 			if scale:
-				outputs = outputs * tf.sqrt(num_units)
+				outputs = outputs * tf.sqrt(tf.cast(num_units, tf.float32))
 
 			self.model_num += 1
 
 		return outputs
 
-	def positional_encoding(self, inputs, num_units, zero_pad=True, scale=True, scope="Positional_Encoding", reuse=None):
+	def positional_encoding(self, inputs, num_units, zero_pad=True, scale=True, scope="en_positional_encoding", reuse=None):
 		N, T = inputs.get_shape().as_list()
 		with tf.variable_scope(scope, reuse=reuse):
 			position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [N, 1])  # shape = [batch_size, seq_length]
 
 			# PE function for sin & cos embeddings
-			position_encoder = np.array([[pos / np.power(10000, 2.0 * i / num_units) for i in range(num_units // 2)] for pos in range(T)])
+			position_encoder = np.array([[pos / np.power(10000, 2.0 * i / num_units) for i in range(num_units)] for pos in range(T)])
 			position_encoder[:, 0::2] = np.sin(position_encoder[:, 0::2])
 			position_encoder[:, 1::2] = np.cos(position_encoder[:, 1::2])
 
@@ -40,11 +44,11 @@ class Model(object):
 			outputs = tf.nn.embedding_lookup(embeddings, position_idx)
 
 			if scale:
-				outputs = outputs * tf.sqrt(num_units)
+				outputs = outputs * tf.sqrt(tf.cast(num_units, tf.float32))
 
 			self.model_num += 1
 
-		return outputs
+		return tf.cast(outputs, tf.float32)
 
 	def multihead_attention(self, queries, keys, num_units=None, num_heads=8, dropout_rate=0, is_training=True, mask=False, scope="Multihead_Attention", reuse=None):
 		with tf.variable_scope(scope, reuse=reuse):
@@ -65,10 +69,8 @@ class Model(object):
 
 			# Attention(Q, K, V)
 			outputs = tf.matmul(Q_, tf.transpose(K_, [0, 2, 1]))    # shape = [h * N, T_q, T_k]
-
 			# scale
-			outputs = outputs / tf.sqrt(K_.get_shape().as_list()[-1])
-
+			outputs = outputs / tf.sqrt(tf.cast(K_.get_shape().as_list()[-1], tf.float32))
 			# Key Masking
 			key_masks = tf.sign(tf.abs(tf.reduce_sum(keys, axis=-1)))   # shape = [N, T_k]
 			key_masks = tf.tile(key_masks, [num_heads, 1])  # shape = [h * N, T_k]
@@ -91,7 +93,6 @@ class Model(object):
 
 			# Softmax
 			outputs = tf.nn.softmax(outputs)    # shape = [h * N, T_q, T_k]
-
 			# Query Masking
 			query_mask = tf.sign(tf.abs(tf.reduce_sum(queries, axis=-1)))   # shape = [N, T_q]
 			query_mask = tf.tile(query_mask, [num_heads, 1])    # shape = [N * h, T_q]
@@ -100,7 +101,6 @@ class Model(object):
 
 			# Dropout
 			outputs = tf.layers.dropout(outputs, rate=dropout_rate, training=tf.convert_to_tensor(is_training))
-
 			# Matmul
 			outputs = tf.matmul(outputs, V_)    # shape = [h * N, T_q, C / h]
 
@@ -111,16 +111,14 @@ class Model(object):
 
 			# Residual connection
 			outputs += queries
-
 			# Normalize
 			outputs = self.normalize(outputs)   # shape = [N, T_q, C]
 
 			self.model_num += 1
-
 		return outputs
 
 	def feedforward(self, inputs, num_units=(2048, 512), scope="feed_forward", reuse=None):
-		with tf.variable_scope(scope=scope, reuse=reuse):
+		with tf.variable_scope(scope, reuse=reuse):
 			# Input layer
 			params = {"inputs": inputs, "filters": num_units[0], "kernel_size": 1, "activation": tf.nn.relu, "use_bias": True}
 			outputs = tf.layers.conv1d(**params)
@@ -135,21 +133,23 @@ class Model(object):
 			# Normalize
 			outputs = self.normalize(outputs)
 
+			self.model_num += 1
+
 		return outputs
 
 	def label_smoothing(self, inputs, epsilon=0.1):
 		K = inputs.get_shape().as_list()[-1]
+		self.model_num += 1
 		return (1 - epsilon) * inputs + (epsilon / K)
 
 	def normalize(self, inputs, epsilon=1e-8, scope="normalize", reuse=None):
-		with tf.variable_scope(scope=scope, reuse=reuse):
+		with tf.variable_scope(scope, reuse=reuse):
 			inputs_shape = inputs.get_shape()
 			params_shape = inputs_shape[-1:]
-
 			mean, variance = tf.nn.moments(inputs, [-1], keep_dims=True)
 			beta = tf.Variable(tf.zeros(params_shape))
 			gamma = tf.Variable(tf.ones(params_shape))
-			normalized = (inputs - mean) / (tf.sqrt(variance + epsilon))
-			outputs = tf.matmul(normalized, gamma) + beta
-
+			normalized = (inputs - mean) / (tf.sqrt(tf.cast(variance + epsilon, tf.float32)))
+			outputs = normalized * gamma + beta
+			self.model_num += 1
 		return outputs
