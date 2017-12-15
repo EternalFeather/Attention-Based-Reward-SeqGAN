@@ -79,7 +79,6 @@ class Data_helper(object):
 
 	def next(self):
 		X, _, Sources, Targets = self.load_datasets("test")
-		self.test_num_batch = len(X) // pm.BATCH_SIZE
 		x = X[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
 		sources = Sources[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
 		targets = Targets[self.pointer * pm.BATCH_SIZE: (self.pointer + 1) * pm.BATCH_SIZE]
@@ -88,4 +87,6 @@ class Data_helper(object):
 
 	def reset_pointer(self):
 		self.pointer = 0
+		X, _, _, _ = self.load_datasets("test")
+		self.test_num_batch = len(X) // pm.BATCH_SIZE
 		return self.test_num_batch

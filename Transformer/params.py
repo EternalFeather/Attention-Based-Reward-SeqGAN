@@ -21,4 +21,5 @@ class Params(object):
 	NUM_HEADS = 8
 	LOGDIR = "logdir"
 	NUM_EPOCH = 20
+	MIN_SENT_LENGTH = 3
 

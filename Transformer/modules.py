@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import tensorflow as tf
 import numpy as np
+from Transformer.params import Params as pm
 
 
 class Model(object):
@@ -26,11 +27,13 @@ class Model(object):
 
 		return outputs
 
-	def positional_encoding(self, inputs, num_units, zero_pad=True, scale=True, scope="en_positional_encoding", reuse=None):
+	def positional_encoding(self, inputs, num_units, trainable, zero_pad=True, scale=True, scope="en_positional_encoding", reuse=None):
 		N, T = inputs.get_shape().as_list()
 		with tf.variable_scope(scope, reuse=reuse):
-			position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [N, 1])  # shape = [batch_size, seq_length]
-
+			if trainable:
+				position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [N, 1])  # shape = [batch_size, seq_length]
+			else:
+				position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [pm.BATCH_SIZE, 1])
 			# PE function for sin & cos embeddings
 			position_encoder = np.array([[pos / np.power(10000, 2.0 * i / num_units) for i in range(num_units)] for pos in range(T)])
 			position_encoder[:, 0::2] = np.sin(position_encoder[:, 0::2])

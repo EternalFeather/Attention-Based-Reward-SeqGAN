@@ -6,6 +6,8 @@ from Transformer.modules import Model
 from tqdm import tqdm
 import codecs, os
 from collections import Counter
+import numpy as np
+from nltk.translate.bleu_score import corpus_bleu
 
 
 class Transformer(object):
@@ -42,6 +44,7 @@ class Transformer(object):
 			# Positional Encoding
 			self.encoder += self.models.positional_encoding(self.x,
 															num_units=pm.HIDDEN_UNITS,
+															trainable=trainable,
 															zero_pad=False,
 															scale=False,
 															scope="en_positional_encoding")
@@ -79,6 +82,7 @@ class Transformer(object):
 			# Positional Encoding
 			self.decoder += self.models.positional_encoding(self.decoder_inputs,
 															num_units=pm.HIDDEN_UNITS,
+															trainable=trainable,
 															zero_pad=False,
 															scale=False,
 															scope="De_Positional_Encoding")
@@ -180,7 +184,7 @@ def train():
 			gs = sess.run(model.global_step)
 			saver.save(sess, pm.LOGDIR + "/model_epoch_{}_global_step_{}".format(epoch, gs))
 
-	print("MSG : Done!")
+	print("MSG : Done for training!")
 
 
 def eval():
@@ -188,8 +192,7 @@ def eval():
 	print("MSG : Testing transformer ready!")
 
 	# Load data
-	en2idx, idx2en = model.data_loader.load_vocab(pm.ENCODER_VOCAB)
-	de2idx, idx2en = model.data_loader.load_vocab(pm.DECODER_VOCAB)
+	de2idx, idx2de = model.data_loader.load_vocab(pm.DECODER_VOCAB)
 
 	# Start testing
 	sv = tf.train.Supervisor()
@@ -212,7 +215,31 @@ def eval():
 				x, sources, targets = model.data_loader.next()
 
 				# Auto-regressive inference
+				preds = np.zeros((pm.BATCH_SIZE, pm.SEQ_LEN), dtype=np.int32)
+				for j in range(pm.SEQ_LEN):
+					pred = sess.run(model.predicts, feed_dict={model.x: x, model.y: preds})
+					preds[:, j] = pred[:, j]
+
+				for source, target, pred in zip(sources, targets, preds):
+					res = " ".join(idx2de[idx] for idx in pred).split("<EOS>")[0].strip()
+					f.write("- Source: {}\n".format(source))
+					f.write("- Ground Truth:{}\n".format(target))
+					f.write("- Predict:{}\n".format(res))
+					f.flush()
+
+					# Bleu Score
+					ref = target.split()
+					predicts = res.split()
+					if len(ref) > pm.MIN_SENT_LENGTH and len(predicts) > pm.MIN_SENT_LENGTH:
+						list_of_refs.append([ref])
+						hypothesis.append(predicts)
+
+			score = corpus_bleu(list_of_refs, hypothesis)
+			f.write("Bleu Score = {}".format(100 * score))
+
+	print("MSG : Done for testing!")
 
 if __name__ == '__main__':
 	train()
+	# eval()
 
