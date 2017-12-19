@@ -8,6 +8,7 @@
       <w>diag</w>
       <w>feedforward</w>
       <w>fname</w>
+      <w>iwslt</w>
       <w>logdir</w>
       <w>logits</w>
       <w>lstm</w>

@@ -1,0 +1,1409 @@
+- source: Sie war eine jährige Frau namens Alex
+- ground truth: She was a yearold woman named Alex
+- predict: She was a <UNK> woman on the woman
+
+- source: Und als ich das hörte war ich erleichtert
+- ground truth: Now when I heard this I was so relieved
+- predict: And as I was the hands I was <UNK>
+
+- source: Meine Kommilitonin bekam nämlich einen Brandstifter als ersten Patienten
+- ground truth: My classmate got an arsonist for her first client
+- predict: My <UNK> <UNK> a little one as you know
+
+- source: Das kriege ich hin dachte ich mir
+- ground truth: This I thought I could handle
+- predict: I thought that I thought
+
+- source: Aber ich habe es nicht hingekriegt
+- ground truth: But I didn't handle it
+- predict: But I didn't do it
+
+- source: Ich hielt dagegen
+- ground truth: I pushed back
+- predict: I go against it
+
+- source: Das ist es was Psychologen einen AhaMoment nennen
+- ground truth: That's what psychologists call an Aha moment
+- predict: That's what you are a <UNK>
+
+- source: Meldet euch wenn ihr in euren ern seid
+- ground truth: Raise your hand if you're in your s
+- predict: member it want to give her simply
+
+- source: Ich möchte ein paar von euch sehen
+- ground truth: I really want to see some twentysomethings here
+- predict: I want to see some more
+
+- source: Oh yeah Ihr seid alle unglaublich
+- ground truth: Oh yay Y'all's awesome
+- predict: war involved what all of that was incredible
+
+- source: Dies ist nicht meine Meinung Das sind Fakten
+- ground truth: This is not my opinion These are the facts
+- predict: This is not my social sound
+
+- source: Werdet nicht panisch wenn ihr über  seid
+- ground truth: People who are over  don't panic
+- predict: models be <UNK> if you're <UNK>
+
+- source: Dieser Gruppe wird es gut gehen glaube ich
+- ground truth: This crowd is going to be fine I think
+- predict: This group will I think it's good
+
+- source: Die Presse redet über die Zeitverschiebung des Erwachsenwerdens
+- ground truth: Newspapers talk about the changing timetable of adulthood
+- predict: The touch are <UNK> about the <UNK>
+
+- source: Wissenschaftler nennen die er eine verlängerte Pubertät
+- ground truth: Researchers call the s an extended adolescence
+- predict: Our one he was going to <UNK> the <UNK>
+
+- source: Das stimmt
+- ground truth: It's true
+- predict: The media
+
+- source: Stimmt das nicht
+- ground truth: Isn't that true
+- predict: models do that
+
+- source: Gar nichts
+- ground truth: Nothing happens
+- predict: No one
+
+- source: Wo sind die Leute in den ern hier
+- ground truth: Where are the twentysomethings here
+- predict: certainly are people in the simply
+
+- source: Macht das nicht
+- ground truth: Do not do that
+- predict: <UNK> that
+
+- source: Es ist die Geschichte von Emma
+- ground truth: It's a story about a woman named Emma
+- predict: It's the story of a single one
+
+- source: Das ist Prokastination
+- ground truth: That's procrastination
+- predict: This is <UNK>
+
+- source: Was geschah also mit Emma
+- ground truth: So what happened to Emma
+- predict: So what did it do with a problem
+
+- source: Es ist so einfach ihnen zu helfen
+- ground truth: They are so easy to help
+- predict: It's so easy to help them
+
+- source: Ihr entscheidet gerade jetzt über euer Leben
+- ground truth: You're deciding your life right now
+- predict: You just put in the living lives now
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Ich habe mir vorgestellt wie das aussehen würde
+- ground truth: I started to imagine what this would look like
+- predict: I was like to <UNK> the students
+
+- source: Mit diesem Werkzeug wurde die Grenze also durchbrochen
+- ground truth: So with this tool this boundary has been broken
+- predict: mother that future became the real <UNK>
+
+- source: Aber unsere Hände bleiben immer noch außerhalb des Bildschirms
+- ground truth: But our two hands still remain outside the screen
+- predict: But our own the resources are still <UNK>
+
+- source: Wie würde eine solche Zukunft aussehen
+- ground truth: What would such a future look like
+- predict: How would that students like to be a students
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Aber meine Mutter sagte Nein
+- ground truth: But my tiger mother said No
+- predict: But my with no
+
+- source: Aber die Erwachsenen mochten meine Idee nicht
+- ground truth: But no adults liked the idea
+- predict: But the each idea didn't get my idea
+
+- source: Mein Traum würde also nie wahr werden
+- ground truth: My dream would never come true
+- predict: So there were hundreds of those were never going
+
+- source: Aber das ist so ungerecht
+- ground truth: But that's so unfair
+- predict: But that's how <UNK> it is
+
+- source: Keiner da um mich etwas zu lehren Auch gut
+- ground truth: Nobody around to teach me Fine
+- predict: So I too much for a good thing
+
+- source: Also wendete ich mich Büchern zu
+- ground truth: I turned to books
+- predict: So I went to Congress
+
+- source: Natürlich Bücher die in China verboten sind
+- ground truth: Books banned in China of course
+- predict: Of course the information is <UNK>
+
+- source: Die gute Erde handelt vom Leben der chinesischen Bauern
+- ground truth: The Good Earth is about Chinese peasant life
+- predict: The good OK is in the life
+
+- source: Die Bibel ist interessant aber seltsam
+- ground truth: The Bible is interesting but strange
+- predict: The will be just as bees of it
+
+- source: Aber das ist ein Thema für ein anderes Mal
+- ground truth: That's a topic for a different day
+- predict: But that's a time for a time
+
+- source: Dies gewährt viele Einblicke
+- ground truth: It offers many insights
+- predict: This is a lot of it
+
+- source: Das vergleichende Lesen ist eigentlich nichts Neues
+- ground truth: Comparative reading actually is nothing new
+- predict: The <UNK> of course is not really <UNK>
+
+- source: In der akademischen Welt ist es ein Standardverfahren
+- ground truth: It's a standard practice in the academic world
+- predict: In the world it's a <UNK>
+
+- source: So begann ich immer zwei Bücher gleichzeitig zu lesen
+- ground truth: So I started reading books in pairs
+- predict: So I started to child two information
+
+- source: Braut im Chinesischen bedeutet wörtlich übersetzt neue Mutter Ohoh
+- ground truth: Bride in Chinese literally means new mother Uhoh
+- predict: <UNK> in <UNK> with new decade of <UNK>
+
+- source: Sogar ein zerplatzter Traum kann diesen Zweck erfüllen
+- ground truth: Even a shattered dream can do that for you
+- predict: And a guy <UNK> can do that brought
+
+- source: Mögen Bücher immer mit Ihnen sein
+- ground truth: So may books be always with you
+- predict: <UNK> information always be
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Und dann tat ich es
+- ground truth: And then I did it
+- predict: And then I journey it
+
+- source: Alle Einser
+- ground truth: All of those A's
+- predict: All <UNK>
+
+- source: Ich bin immer noch verdutzt über mein Verhalten
+- ground truth: And I am still baffled by my behavior
+- predict: I'm still with my <UNK>
+
+- source: Ich verstehe nicht woher der Gedanke kam
+- ground truth: I don't understand where the idea came from
+- predict: I didn't stop the thought of the thought
+
+- source: Ich fühlte mich richtig gut
+- ground truth: I felt great
+- predict: I am good enough
+
+- source: Es war doch so offensichtlich
+- ground truth: I mean it should have been so blatantly obvious
+- predict: It was so memory
+
+- source: Ich wurde nie erwischt
+- ground truth: I was never caught
+- predict: I never got too
+
+- source: Eifersucht verblüfft mich
+- ground truth: Jealousy baffles me
+- predict: <UNK> get me
+
+- source: Sie ist so geheimnisvoll so tiefgreifend
+- ground truth: It's so mysterious and it's so pervasive
+- predict: It's so <UNK> that they are so <UNK>
+
+- source: Wir wissen dass Babys unter Eifersucht leiden
+- ground truth: We know babies suffer from jealousy
+- predict: We know that under shown than <UNK>
+
+- source: Also keine untreue Helena keine Odyssee
+- ground truth: Well no faithless Helen no Odyssey
+- predict: So no <UNK> no <UNK>
+
+- source: Kein eifersüchtiger König keine Abenteuer aus  Nacht
+- ground truth: No jealous king no Arabian Nights
+- predict: <UNK> not working on night
+
+- source: Kein Shakespeare
+- ground truth: No Shakespeare
+- predict: <UNK> emotions
+
+- source: Wir denken an ein Stück Kuchen in LavendelTee eingetaucht
+- ground truth: We think about a madeleine moistened in lavender tea
+- predict: We think of a piece of jobs in jobs
+
+- source: Wir vergessen wie rau seine Vision war
+- ground truth: We forget how harsh his vision was
+- predict: We were at his <UNK> that was his
+
+- source: Wir vergessen wie erbarmungslos er ist
+- ground truth: We forget how pitiless he is
+- predict: We were like <UNK> he's like this
+
+- source: Wenn wir eifersüchtig sind erzählen wir uns eine Geschichte
+- ground truth: When we feel jealous we tell ourselves a story
+- predict: When we tell us we're a story
+
+- source: Eifersucht ist ermüdend
+- ground truth: Jealousy is exhausting
+- predict: <UNK> is <UNK>
+
+- source: Es ist ein hungriges Gefühl das genährt werden muss
+- ground truth: It's a hungry emotion It must be fed
+- predict: It's a feeling of <UNK> that will be <UNK>
+
+- source: Was mag die Eifersucht
+- ground truth: And what does jealousy like
+- predict: What is the <UNK>
+
+- source: Eifersucht mag Informationen
+- ground truth: Jealousy likes information
+- predict: <UNK> is information
+
+- source: Eifersucht mag Details
+- ground truth: Jealousy likes details
+- predict: <UNK> like natural
+
+- source: Eifersucht mag Fotos
+- ground truth: Jealousy likes photos
+- predict: <UNK> like risk
+
+- source: Deshalb ist Instagram auch so erfolgreich
+- ground truth: That's why Instagram is such a hit
+- predict: <UNK> <UNK> is also that country
+
+- source: Freud sollte später darüber schreiben
+- ground truth: Freud would write about this later
+- predict: <UNK> later on the complicated
+
+- source: Weil sie unschuldig ist und jeder weiß das
+- ground truth: Because she's blameless everybody knows it
+- predict: Because it's meaning and it's everybody
+
+- source: Der Roman ist sehr gut in diesem Punkt
+- ground truth: The novel is very good on this point
+- predict: The second one is very good at this point
+
+- source: Ein ganzes Jahr lang
+- ground truth: For a year A year
+- predict: <UNK> a modern year
+
+- source: Weil Lassen Sie uns mal ehrlich sein
+- ground truth: Because I mean let's be real
+- predict: Because female does it by us
+
+- source: Welch ungeheure wenn auch deplatzierte Kreativität Stimmt's
+- ground truth: What immense if misplaced creativity Right
+- predict: <UNK> if you can also see <UNK> very <UNK>
+
+- source: Das ist etwas aus einem Roman
+- ground truth: This is something from a novel
+- predict: That's something that looks at a friend
+
+- source: Das ist etwas aus einem Roman von Patricia Highsmith
+- ground truth: This is something from a Patricia Highsmith novel
+- predict: That's something that <UNK> from an <UNK>
+
+- source: Highsmith ist eine meiner Lieblingsschriftstellerinnen
+- ground truth: Now Highsmith is a particular favorite of mine
+- predict: <UNK> is one of my watching <UNK>
+
+- source: Nehmen wir Tom Ripley ihre berühmteste Figur
+- ground truth: Take Tom Ripley her most famous character
+- predict: Take a sense of <UNK> their Indian
+
+- source: Das ist eine Methode
+- ground truth: That's one way to go
+- predict: That's a program
+
+- source: Wir leben in einer eifersuchtsanfälligen Zeit
+- ground truth: We live in jealous times
+- predict: We live in a <UNK> time
+
+- source: Das ist mir so vertraut
+- ground truth: Oh it's so familiar to me
+- predict: That's the other one
+
+- source: Wir sind stolz auf Sie
+- ground truth: We're proud of you
+- predict: dollars campaign of you
+
+- source: Und im nächsten Moment liegen sie auf einer Wellenlänge
+- ground truth: The next minute they're on the same side
+- predict: And then they're doing a simple of a <UNK>
+
+- source: Ist es denn wirklich so einfach
+- ground truth: Could it be so simple though
+- predict: Is it really that easy
+
+- source: Wir könnten uns aneinander ausrichten
+- ground truth: We could align ourselves with it
+- predict: We could be more than us
+
+- source: Aber ich mag Notfallpläne
+- ground truth: But I like contingency plans
+- predict: But I like a <UNK>
+
+- source: Literatur allein enträtselt die Eifersucht
+- ground truth: Fiction alone demystifies jealousy
+- predict: changes alone the most important ones
+
+- source: Literatur allein kann sie zähmen lädt sie ein
+- ground truth: Fiction alone domesticates it invites it to the table
+- predict: And changes it can be <UNK> it
+
+- source: Wir befinden uns in exzellenter Gesellschaft
+- ground truth: We are in excellent company
+- predict: We are right <UNK>
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Es war ein wunderschöner Tag
+- ground truth: It was a beautiful day
+- predict: It was a <UNK> day
+
+- source: Der Wald funkelte
+- ground truth: The forest was sparkling
+- predict: The <UNK> <UNK>
+
+- source: Wir kamen zu unserem Zeltplatz
+- ground truth: We got to our campsite
+- predict: We were going to come from our <UNK>
+
+- source: Wer räumt nach uns auf
+- ground truth: Who cleans up after us
+- predict: upon is <UNK> to us
+
+- source: Ich wollte sie kennenlernen  als Individuen
+- ground truth: I wanted to get to know them as individuals
+- predict: I wanted to be a value of the way
+
+- source: Ich wollte verstehen wer den Job macht
+- ground truth: I wanted to understand who takes the job
+- predict: I wanted to do who health it
+
+- source: Also startete ich ein Forschungsprojekt mit ihnen
+- ground truth: So I started a research project with them
+- predict: So I started a <UNK> with them
+
+- source: Ich musste noch tiefer gehen
+- ground truth: I needed to go deeper
+- predict: I'm still college for sure
+
+- source: Also nahm ich einen Job als Reinigungskraft an
+- ground truth: So I took the job as a sanitation worker
+- predict: So I probably one as a <UNK>
+
+- source: Es war ein bemerkenswertes Privileg und eine aufregende Erfahrung
+- ground truth: It was a remarkable privilege and an amazing education
+- predict: It was a <UNK> and a experience of course
+
+- source: Jeder fragt nach dem Gestank
+- ground truth: Everyone asks about the smell
+- predict: separate is true of the <UNK>
+
+- source: Dann ist da die Gefahr
+- ground truth: Then there's the danger
+- predict: Then there's your one
+
+- source: Das ist wirklich schlecht für die Arbeiter
+- ground truth: That's really bad for the worker
+- predict: That's really bad for the objects
+
+- source: Ich lernte auch über die Unbarmherzigkeit des Mülls
+- ground truth: I also learned about the relentlessness of trash
+- predict: I also do the quickly the <UNK>
+
+- source: Er hört nicht auf zu entstehen
+- ground truth: It never stops coming
+- predict: He doesn't stop there
+
+- source: Er muss immer in Bewegung sein
+- ground truth: It must always be in motion
+- predict: He has to be movement
+
+- source: Und dann ist da das Stigma
+- ground truth: And then there's the stigma
+- predict: And then there's the <UNK>
+
+- source: Sie sind die Wächter der öffentlichen Gesundheit
+- ground truth: They are the first guardians of public health
+- predict: They're called the <UNK> of the called the
+
+- source: Die Wirtschaft braucht sie
+- ground truth: The economy needs them
+- predict: The phone needs them
+
+- source: Ihre Arbeit so denke ich ist irgendwie liturgisch
+- ground truth: Their work I think is kind of liturgical
+- predict: forest work I think so <UNK> is kind
+
+- source: Sie sehen die Straßen jeden Tag regelmäßig
+- ground truth: They're on the streets every day rhythmically
+- predict: You see what many day is efforts
+
+- source: Sie tragen in vielen Städten Uniformen
+- ground truth: They wear a uniform in many cities
+- predict: They are in his street in the <UNK>
+
+- source: Man weiß wann man sie erwarten kann
+- ground truth: You know when to expect them
+- predict: You know when you can see it time
+
+- source: Und ihre Arbeit lässt uns unsere tun
+- ground truth: And their work lets us do our work
+- predict: And their work is to do our us
+
+- source: Sie sind wie eine Rückversicherung
+- ground truth: They are almost a form of reassurance
+- predict: They're like a <UNK>
+
+- source: Alles wird gut
+- ground truth: We're going to be okay
+- predict: All right
+
+- source: Ich wollte glauben dass Paulie recht hatte
+- ground truth: I want to believe that Paulie was right
+- predict: I wanted to be right away from right
+
+- source: Alles wird gut
+- ground truth: We are going to be okay
+- predict: All right
+
+- source: Es ist eine bemerkenswerte Statistik
+- ground truth: It's a remarkable statistic
+- predict: It's a third hands
+
+- source: Nehmen Sie sich einen Moment sich zu bedanken
+- ground truth: Take a moment to say thank you
+- predict: Take a simple of course look at that
+
+- source: Hallo TEDWomen was geht
+- ground truth: Hello TEDWomen what's up
+- predict: All right what is the point
+
+- source: Das reicht nicht
+- ground truth: Not good enough
+- predict: The centers of it
+
+- source: Hallo TEDWomen was geht
+- ground truth: Hello TEDWomen what is up
+- predict: All right what is the point
+
+- source: Schaut mal
+- ground truth: Look
+- predict: <UNK>
+
+- source: Zerebralparese ist nicht genetisch
+- ground truth: CP is not genetic
+- predict: <UNK> is not discovery
+
+- source: Sie ist kein Geburtsfehler Man kann sie nicht kriegen
+- ground truth: It's not a birth defect You can't catch it
+- predict: It's not a <UNK> You can't call it
+
+- source: Kommt mal kurz mit
+- ground truth: Come on a journey with me
+- predict: <UNK> for a simple
+
+- source: Sechzehn leere Behindertenparkplätze
+- ground truth: Sixteen empty handicapped spaces
+- predict: <UNK> all of the <UNK>
+
+- source: Cliffside Park in New Jersey ist meine Heimatstadt
+- ground truth: Cliffside Park New Jersey is my hometown
+- predict: <UNK> American New York is that my watching
+
+- source: Ich habe am Broadway gesteppt
+- ground truth: I have tapdanced on Broadway
+- predict: I <UNK> on the <UNK>
+
+- source: Ja am Broadway Total verrückt
+- ground truth: Yeah on Broadway It's crazy
+- predict: step <UNK> on the drive
+
+- source: Aber eine Wunderkur fanden wir Yoga
+- ground truth: But one miracle cure we did find was yoga
+- predict: But we found a <UNK> we found
+
+- source: Jetzt kann ich auch auf dem Kopf stehen
+- ground truth: And now I can stand on my head
+- predict: Now I can also network up on
+
+- source: Alle liebten mich
+- ground truth: Everybody loved me
+- predict: All right me
+
+- source: Aber ich bekam nie eine Rolle
+- ground truth: But I never got cast
+- predict: But I never have a robots
+
+- source: Ein Stück über ein Mädchen mit CP
+- ground truth: It's a play about a girl with CP
+- predict: A piece about a Europe with <UNK>
+
+- source: Ich war ein Mädchen mit CP
+- ground truth: I was a girl with CP
+- predict: I was a Europe with <UNK>
+
+- source: Ich habe Zerebralparese
+- ground truth: I have cerebral palsy
+- predict: I have <UNK>
+
+- source: Endlich frei Endlich frei
+- ground truth: Free at last Free at last
+- predict: So let's go from the time
+
+- source: Gott sei Dank ich bin endlich frei
+- ground truth: Thank God almighty I'm free at last
+- predict: Thank you for the long time I decided
+
+- source: Ich bekam die Rolle nicht
+- ground truth: I didn't get the part
+- predict: I don't care that
+
+- source: Sherry Brown bekam die Rolle
+- ground truth: Sherry Brown got the part
+- predict: <UNK> can be able to play the robots
+
+- source: Die Uni imitierte das Leben
+- ground truth: College was imitating life
+- predict: The other lives <UNK> life
+
+- source: Mein Traum wurde wahr
+- ground truth: My dream was coming true
+- predict: If were drugs
+
+- source: Sie stellten nur perfekte Leute ein
+- ground truth: They only hired perfect people
+- predict: You just guys just guys with one people
+
+- source: Aber Ausnahmen bestätigen ja die Regel
+- ground truth: But there were exceptions to the rule
+- predict: But look at the center of the center save
+
+- source: Also wurde ich Komikerin
+- ground truth: So I became a comic
+- predict: So I became a <UNK>
+
+- source: Mein großer Durchbruch war
+- ground truth: My big break came in
+- predict: If we were alive
+
+- source: Und wir waren live
+- ground truth: And we were live right
+- predict: And we were good
+
+- source: Ey ist die bekloppt
+- ground truth: Yo is she retarded
+- predict: <UNK> is the <UNK>
+
+- source: Und mein Favorit Armer HängelippenTerrorist
+- ground truth: And my favorite Poor Gumbymouth terrorist
+- predict: And my watching <UNK> <UNK>
+
+- source: Hat sie ne Krankheit
+- ground truth: What does she suffer from
+- predict: <UNK> it by hours
+
+- source: Wir sollten für sie beten
+- ground truth: We should really pray for her
+- predict: We are <UNK> it
+
+- source: Eine Behinderung ist so sichtbar wie die Herkunft
+- ground truth: Disability is as visual as race
+- predict: A green is how the green one is
+
+- source: Oder vielleicht nicht
+- ground truth: Or maybe not
+- predict: Or maybe not
+
+- source: Menschen starben darunter auch die Besatzung der Apollo
+- ground truth: People died including the crew of Apollo
+- predict: People were also true of the <UNK> the <UNK>
+
+- source: Doch warum gingen sie
+- ground truth: So why did they go
+- predict: <UNK> they lost it
+
+- source: Ich erinnere mich noch daran wie ich als Fünfjähriger
+- ground truth: I remember watching the liftoff of Apollo
+- predict: I am more than I want to do <UNK>
+
+- source: Man hört es überall
+- ground truth: You hear it all the time
+- predict: You States it everywhere
+
+- source: Sie haben unser Leben verlängert und bereichert
+- ground truth: They've expanded and enriched our lives
+- predict: They have our lives and <UNK>
+
+- source: Doch sie lösen nicht die großen Probleme der Menschheit
+- ground truth: But they don't solve humanity's big problems
+- predict: <UNK> they don't showed the great problems
+
+- source: Was ist passiert
+- ground truth: What happened
+- predict: What is it
+
+- source: Aber diese Erklärung ist mir nicht gut genug
+- ground truth: But I don't think that explanation is good enough
+- predict: But that of course is not good enough
+
+- source: Es erklärt hauptsächlich was mit Silicon Valley nicht stimmt
+- ground truth: It mostly explains what's wrong with Silicon Valley
+- predict: It health it more series with what happens
+
+- source: Wir könnten zum Mars fliegen wenn wir wollen
+- ground truth: We could go to Mars if we want
+- predict: We could do amazing things when we want
+
+- source: NASA hat sogar schon einen Plan entworfen
+- ground truth: NASA even has the outline of a plan
+- predict: So in fact it was actually a He thought
+
+- source: Schwierige Probleme sind schwierig
+- ground truth: Hard problems are hard
+- predict: <UNK> are seven of the problems
+
+- source: Es nicht das Jahr
+- ground truth: It is not
+- predict: It doesn't
+
+- source: Er war nur drei Tage entfernt
+- ground truth: It was just three days away
+- predict: He was only three days away
+
+- source: Weiß Gott es fehlt uns jedenfalls nicht an Herausforderungen
+- ground truth: God knows we don't lack for the challenges
+- predict: forming <UNK> it doesn't stop us
+
+- source: Vielen Dank
+- ground truth: Thank you very much
+- predict: Thank you very much
+
+- source: Ich möchte euch einladen eure Augen zu schließen
+- ground truth: I'd like to invite you to close your eyes
+- predict: I want to start to another year
+
+- source: Du musst dir das wirklich vorstellen
+- ground truth: I need you to actually see this
+- predict: You're going to art the patients
+
+- source: Das Licht scheint auf das Krümelmonster
+- ground truth: The light is shining down on Cookie Monster
+- predict: The men seems to the <UNK>
+
+- source: Einem sprechenden Pferd
+- ground truth: It's a talking horse
+- predict: <UNK> your appropriate
+
+- source: Jetzt folge mir in deine Küche
+- ground truth: And then follow me into your kitchen
+- predict: Now let me get in your own action
+
+- source: Okay Jetzt öffne die Augen
+- ground truth: Okay Open your eyes
+- predict: Now we're going to create the <UNK> up now
+
+- source: Er heißt United States Memory Championship
+- ground truth: It's called the United States Memory Championship
+- predict: It's called <UNK> <UNK> <UNK> <UNK>
+
+- source: Das ist verrückt
+- ground truth: I was like this is unbelievable
+- predict: This is drive
+
+- source: Diese Leute müssen übernatürliche Fähigkeiten haben
+- ground truth: These people must be freaks of nature
+- predict: These people have got to have <UNK>
+
+- source: Und Ed sagte Ich bin kein Inselbegabter
+- ground truth: And Ed was like I'm not a savant
+- predict: And <UNK> said I'm not a <UNK>
+
+- source: Ich habe nur ein durchschnittliches Gedächtnis
+- ground truth: In fact I have just an average memory
+- predict: I just did a <UNK>
+
+- source: Kennst du Britney Spears
+- ground truth: Do you know Britney Spears
+- predict: Do you feel <UNK>
+
+- source: Ich Was Nee Wieso
+- ground truth: I'm like What No Why
+- predict: I What do you think of article
+
+- source: Ich meine du musst ja irgendwo anfangen nicht wahr
+- ground truth: I mean you've got to start somewhere right
+- predict: I mean it's Sometimes right
+
+- source: Ich habe eine Menge wirklich interessanter Leute getroffen
+- ground truth: I met a host of really interesting people
+- predict: I really have a lot of people as well
+
+- source: Das hier ist zum Beispiel EP
+- ground truth: This is a guy called EP
+- predict: This for example is <UNK>
+
+- source: Kim Peek kennen
+- ground truth: This is Kim Peek
+- predict: <UNK> know <UNK>
+
+- source: Die Antwort war Nein
+- ground truth: The answer was no
+- predict: The Africa was no
+
+- source: Sind sie klüger als wir
+- ground truth: Are they smarter than the rest of us
+- predict: That's what it is when we call
+
+- source: Ja
+- ground truth: Yeah
+- predict: Yeah
+
+- source: Das ist sein Name
+- ground truth: That's his name
+- predict: That's his times
+
+- source: Weißt du noch welches Wort es war
+- ground truth: Do you remember what it was
+- predict: Do you have that one was true
+
+- source: Gleiches Wort unterschiedliches Erinnerungsvermögen das ist seltsam
+- ground truth: Same word different amount of remembering that's weird
+- predict: <UNK> that <UNK> is bees of that
+
+- source: Was geht hier vor sich
+- ground truth: What's going on here
+- predict: What is going on here
+
+- source: Aber der Beruf des Bäckers wir kennen Bäcker
+- ground truth: But the common noun baker we know bakers
+- predict: But the system of us know we know <UNK>
+
+- source: Bäcker tragen komische weiße Mützen
+- ground truth: Bakers wear funny white hats
+- predict: <UNK> hey to whales <UNK>
+
+- source: Bäcker haben Mehl an ihren Händen
+- ground truth: Bakers have flour on their hands
+- predict: <UNK> have <UNK> at their things
+
+- source: Vielleicht kennen wir sogar einen Bäcker
+- ground truth: Maybe we even know a baker
+- predict: violence we even know a <UNK>
+
+- source: Sie wurde als der Gedächtnispalast bekannt
+- ground truth: It came to be known as the memory palace
+- predict: She was <UNK> as the lines
+
+- source: Die Körper können nicht richtig bestattet werden
+- ground truth: The bodies can't be properly buried
+- predict: The body can't be right
+
+- source: Es ist eine Tragödie nach der anderen
+- ground truth: It's one tragedy compounding another
+- predict: It is a impacts impacts of the others
+
+- source: Wie funktioniert es also
+- ground truth: So how does this work
+- predict: So how does it work
+
+- source: Aber es gab da ein Problem
+- ground truth: But there was a problem
+- predict: But there was a problem
+
+- source: Vielleicht ein Gedicht oder
+- ground truth: Maybe it was a poem
+- predict: violence a am right
+
+- source: Ich musste feststellen dass es erstaunlich viel Spaß macht
+- ground truth: And I found that this was shockingly fun
+- predict: I set that it health a big last big
+
+- source: Ich konnte mir das niemals vorstellen
+- ground truth: I never would have expected that
+- predict: I could never art that
+
+- source: Ich vertiefte mich darin
+- ground truth: And I got pretty into it
+- predict: I was team in it
+
+- source: Das sind nur Tricks
+- ground truth: These are just tricks
+- predict: That's just for a simple
+
+- source: Gute Gedächtnisse sind antrainiert
+- ground truth: Great memories are learned
+- predict: The continent are <UNK>
+
+- source: Wir erinnern uns wenn wir engagiert sind
+- ground truth: We remember when we are deeply engaged
+- predict: We remember when we are <UNK>
+
+- source: Der Gedächtnispalast diese Gedächtnistechniken sie sind alle nur Abkürzungen
+- ground truth: The memory palace these memory techniques they're just shortcuts
+- predict: The <UNK> they are all <UNK> are <UNK>
+
+- source: Tatsächlich sind es nicht mal wirkliche Abkürzungen
+- ground truth: In fact they're not even really shortcuts
+- predict: In fact it's not even a way of <UNK>
+
+- source: Sie funktionieren weil sie uns zwingen zu arbeiten
+- ground truth: They work because they make you work
+- predict: They work because they work to work with us
+
+- source: Aber es sind keine Abkürzungen
+- ground truth: But there actually are no shortcuts
+- predict: But it's not a <UNK>
+
+- source: So werden Dinge im Gedächtnis verankert
+- ground truth: This is how stuff is made memorable
+- predict: So things are going on in the same interested
+
+- source: Danke
+- ground truth: Thank you
+- predict: Thank you
+
+- source: Wie jeder Lehrer führte ich Tests und Prüfungen durch
+- ground truth: And like any teacher I made quizzes and tests
+- predict: How East did I get through room by room
+
+- source: Ich gab Hausaufgaben auf
+- ground truth: I gave out homework assignments
+- predict: I had one
+
+- source: Als die Arbeiten zurückkamen berechnete ich Noten
+- ground truth: When the work came back I calculated grades
+- predict: As a who's the <UNK> I say
+
+- source: Einige meiner schlauesten Kinder schnitten nicht besonders gut ab
+- ground truth: Some of my smartest kids weren't doing so well
+- predict: Some of my children don't think very well
+
+- source: Das ließ mich nachdenken
+- ground truth: And that got me thinking
+- predict: That <UNK> me
+
+- source: und wer das meiste Geld verdienen würde
+- ground truth: And who's going to earn the most money
+- predict: And who will be money
+
+- source: Uns es war nicht soziale Intelligenz
+- ground truth: And it wasn't social intelligence
+- predict: <UNK> it wasn't an tail
+
+- source: Es war Durchhaltevermögen
+- ground truth: It was grit
+- predict: It was <UNK>
+
+- source: Durchhaltevermögen ist Leidenschaft und Ausdauer für sehr langfristige Ziele
+- ground truth: Grit is passion and perseverance for very longterm goals
+- predict: <UNK> is perfectly and very common for the same
+
+- source: Durchhaltevermögen ist Stehvermögen
+- ground truth: Grit is having stamina
+- predict: <UNK> is <UNK>
+
+- source: Die ehrliche Antwort Ich weiß es nicht
+- ground truth: The honest answer is I don't know
+- predict: The <UNK> I don't know
+
+- source: Aber wir brauchen mehr
+- ground truth: But we need more
+- predict: But we need more
+
+- source: Das ist die Arbeit die vor uns liegt
+- ground truth: That's the work that stands before us
+- predict: That's the work that we're there
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Ich überlegte auch Wie schließen wir das Gebäude
+- ground truth: I also thought how to close the building
+- predict: I want to make aware name
+
+- source: Es verstärkt auch das Konzept der Tore
+- ground truth: And it also reinforces this idea of the gates
+- predict: It also also <UNK> the idea of <UNK>
+
+- source: Vielen Dank
+- ground truth: Thank you very much
+- predict: Thank you very much
+
+- source: Davon gibt es meiner Ansicht nach drei
+- ground truth: And I think there are three
+- predict: Now of course there have to my three things
+
+- source: Mir fehlt der Überblick
+- ground truth: I don't have an overview
+- predict: And so it was the name of the time
+
+- source: Aber ist das ein guter Beweis
+- ground truth: But is that good evidence
+- predict: But is this a first bit more <UNK>
+
+- source: Meinungsumfragen erheben  klar  Meinungen
+- ground truth: What opinion polls record is of course opinions
+- predict: <UNK> these are very relationship
+
+- source: Was könnten sie sonst erheben
+- ground truth: What else can they record
+- predict: What could they be <UNK> company
+
+- source: Vertrauen Sie Politikern Vertrauen Sie Lehrern
+- ground truth: Do you trust politicians Do you trust teachers
+- predict: Now remember at feet you are
+
+- source: Vertrauen Sie Fischhändlern
+- ground truth: Do you trust fishmongers
+- predict: You see <UNK>
+
+- source: Vertrauen Sie Grundschullehrern
+- ground truth: Do you trust elementary school teachers
+- predict: You see <UNK>
+
+- source: dann würden Sie wohl fragen Inwiefern genau
+- ground truth: you would probably begin by saying To do what
+- predict: You would have been <UNK> right
+
+- source: Und das wäre eine vernünftige Reaktion
+- ground truth: And that would be a perfectly sensible response
+- predict: And that would be a open of open
+
+- source: Völlig rational
+- ground truth: That's a perfectly rational thing
+- predict: <UNK> at the same thing
+
+- source: Einfach
+- ground truth: Simple
+- predict: university
+
+- source: Zweitens kommen wir zum Ziel
+- ground truth: Secondly what about the aim
+- predict: And we are coming in
+
+- source: Das Ziel ist es mehr zu vertrauen
+- ground truth: The aim is to have more trust
+- predict: The write are more too much more than that
+
+- source: Ehrlich gesagt finde ich das Ziel dumm
+- ground truth: Well frankly I think that's a stupid aim
+- predict: I said Do you have the policy at all
+
+- source: Darauf würde ich nicht abzielen
+- ground truth: It's not what I would aim at
+- predict: <UNK> to <UNK>
+
+- source: Die Vertrauenswürdigkeit von Menschen einschätzen zu können
+- ground truth: It's judging how trustworthy people are in particular respects
+- predict: The <UNK> of people can <UNK>
+
+- source: Sind sie kompetent Sind sie ehrlich Sind sie verlässlich
+- ground truth: Are they competent Are they honest Are they reliable
+- predict: So they believe that they are <UNK> them
+
+- source: Falls doch habe ich es noch nicht erkannt
+- ground truth: If so I haven't yet spotted it
+- predict: enemy I don't have it to diversity
+
+- source: Aber danach suchen wir erst Vertrauenswürdigkeit dann Vertrauen
+- ground truth: But that's what we're looking for trustworthiness before trust
+- predict: But after that we're looking at <UNK>
+
+- source: Vertrauen ist die Reaktion
+- ground truth: Trust is the response
+- predict: The lab is open
+
+- source: Viele dieser Systeme haben den gegenteiligen Effekt
+- ground truth: A lot of these systems have the converse effect
+- predict: before that find out the way of fact
+
+- source: Sie funktionieren nicht wie beabsichtigt
+- ground truth: They don't work as they're supposed to
+- predict: They don't work how they work
+
+- source: Hierzu kann sicherlich jeder Beispiele beitragen
+- ground truth: You can all give your own examples there
+- predict: <UNK> can everybody see every starts
+
+- source: So viel also zum Ziel
+- ground truth: So so much for the aim
+- predict: So that's how much of the write
+
+- source: Und nun zur Aufgabe
+- ground truth: Now thirdly the task
+- predict: And now the global
+
+- source: Wir können das natürlich für uns selbst tun
+- ground truth: Well we can do that for ourselves
+- predict: We can do that for ourselves
+
+- source: Wir können ein bisschen Vertrauenswürdigkeit gewinnen
+- ground truth: We can rebuild a bit of trustworthiness
+- predict: We can try a first bit more page
+
+- source: Man muss also vertrauenswürdig sein
+- ground truth: So you have to I think be trustworthy
+- predict: So you have to be <UNK>
+
+- source: Wie geht das
+- ground truth: How to do it
+- predict: How does that happen
+
+- source: Hier ist ein einfaches kommerzielles Beispiel
+- ground truth: Let me give you a simple commercial example
+- predict: Here's an example of a <UNK>
+
+- source: Darin steckt eine wichtige Moral
+- ground truth: I think there's a big lesson in that
+- predict: I like to think about a process
+
+- source: Danke
+- ground truth: Thanks
+- predict: Thank you
+
+- source: Der Film hat sie monatelang nicht mehr losgelassen
+- ground truth: It totally dominated her imagination for months
+- predict: The add has no black <UNK> it
+
+- source: Ihr Lieblingscharakter war natürlich Glinda
+- ground truth: Her favorite character was Glinda of course
+- predict: forest <UNK> was <UNK>
+
+- source: Aber Der Zauberer von Oz war anders
+- ground truth: But The Wizard of Oz stood alone
+- predict: But the more of all the <UNK> was different
+
+- source: Er hat diesen Trend nicht gestartet
+- ground truth: It did not start that trend
+- predict: He didn't have that garden in these days
+
+- source: Sie wissen wovon ich rede oder
+- ground truth: Do you know what I'm talking about
+- predict: You know I'm going to start with save
+
+- source: Genau
+- ground truth: Yeah
+- predict: That's right
+
+- source: Aber so passiert es nicht
+- ground truth: But that's not how it happens
+- predict: But it doesn't look at all
+
+- source: Zu jenem Zeitpunkt hatte ich ebenfalls einen Sohn
+- ground truth: At that point I also had a son
+- predict: forget I had environmental <UNK> a communities
+
+- source: Vergleichen Sie das mit Der Zauberer von Oz von
+- ground truth: Compare this to  with The Wizard of Oz
+- predict: success The beautiful thing by the <UNK>
+
+- source: Wie bringt Dorothy ihren Film zu einem guten Ende
+- ground truth: How does Dorothy win her movie
+- predict: How does their add take a add
+
+- source: Warum stehst du da noch rum
+- ground truth: Why are you still standing there
+- predict: Why are you there <UNK>
+
+- source: Ich weiß nicht was ich machen soll
+- ground truth: I don't know what I'm supposed to do
+- predict: I don't know what to do
+
+- source: Es gibt keine Vorbilder für sie
+- ground truth: There's no models for them
+- predict: There are no hunting to them
+
+- source: Ich weiß nicht ob Sie schon davon gehört haben
+- ground truth: I don't know if you've heard of this
+- predict: I don't know if you have done it
+
+- source: Versuchen Sie einmal diese Voraussetzung zu erfüllen
+- ground truth: So try to meet that bar
+- predict: So you get this conversation to that video
+
+- source: Verstanden Dankeschön
+- ground truth: Right Thank you
+- predict: <UNK> too
+
+- source: Vielen Dank
+- ground truth: Thank you very much
+- predict: Thank you very much
+
+- source: Er fällt mit wehenden Fahnen durch den BechdelTest
+- ground truth: It pretty much flunks the Bechdel test
+- predict: He Charles of <UNK> with <UNK> through the <UNK>
+
+- source: So stellen sich manche Hollywood vor
+- ground truth: That's Hollywood for you
+- predict: So for cases did be <UNK>
+
+- source: Elf Das ist nicht übel
+- ground truth: Eleven It's not bad
+- predict: <UNK> This is not <UNK>
+
+- source: Sie besagt dass
+- ground truth: Here's what it said
+- predict: They were in fact
+
+- source: Wer sind diese Typen Was lernen sie
+- ground truth: Who are these guys What are they learning
+- predict: upon are these things What they saw
+
+- source: Was schaffen sie nicht zu lernen
+- ground truth: What are they failing to learn
+- predict: What do they not saw to saw
+
+- source: Nehmen wir diese Geschichte so auf
+- ground truth: Are we soaking up that story
+- predict: Take this story
+
+- source: Sie werden durcheinander gewirbelt
+- ground truth: They're throwing it up in the air
+- predict: They're just going to be <UNK>
+
+- source: ObiWan
+- ground truth: ObiWan
+- predict: <UNK>
+
+- source: ObiWan Kenobi und Glinda
+- ground truth: ObiWan Kenobi and Glinda
+- predict: <UNK> <UNK> and <UNK>
+
+- source: Was haben diese beiden gemeinsam
+- ground truth: What do these two have in common
+- predict: What did these moving
+
+- source: Vielleicht ist es nicht nur das glitzernde Kleid
+- ground truth: Maybe it's not just the sparkly dress
+- predict: violence it's not just the most important happens
+
+- source: Ich denke diese beiden Figuren sind Experten
+- ground truth: I think these people are experts
+- predict: I think these great explore are explore
+
+- source: Außerdem sind sie Anführer
+- ground truth: Now they are leaders
+- predict: <UNK> they were was it
+
+- source: Ich möchte mehr Aufgaben wie diese
+- ground truth: I want more quests like that
+- predict: I want to give you more like this
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Er lebt in einem kleinen Dorf im Süden Somalias
+- ground truth: He lives in a small village in southern Somalia
+- predict: He was in a first <UNK> on a <UNK>
+
+- source: Sein Dorf liegt in der Nähe von Mogadischu
+- ground truth: His village is near Mogadishu
+- predict: <UNK> is <UNK>
+
+- source: Es vergeht vielleicht ein Jahr aber nichts
+- ground truth: Maybe a year passes nothing
+- predict: It may not be a year but nothing year
+
+- source: Ihm wird diese junge Frau vorgestellt
+- ground truth: He is introduced to this young woman
+- predict: <UNK> will be young woman
+
+- source: Schließlich heiratet er
+- ground truth: He eventually gets married
+- predict: <UNK> he did
+
+- source: Er beginnt ein neues Leben
+- ground truth: He starts this new life
+- predict: It was a new life
+
+- source: Sein Leben hat einen Sinn
+- ground truth: He has a purpose in life
+- predict: <UNK> lives is a relationships
+
+- source: Er hatte gewartet
+- ground truth: He was waiting
+- predict: He had box on the th of the US
+
+- source: haben keine Arbeit gehen nicht zur Schule
+- ground truth: percent don't work don't go to school
+- predict: No work not to school
+
+- source: Sie machen eigentlich gar nichts
+- ground truth: They pretty much do nothing
+- predict: They don't actually do anything
+
+- source: Wäre ich Terrorist geworden
+- ground truth: Would I have become a terrorist
+- predict: I have become <UNK>
+
+- source: Ich bin nicht sicher was ich antworten soll
+- ground truth: I'm not really sure about the answer
+- predict: I'm not sure what I'm doing
+
+- source: Ich brachte rund  junge somalische Führungskräfte zusammen
+- ground truth: I brought together about  young Somali leaders
+- predict: I got to remember young <UNK> the young one
+
+- source: Es gab keine Arbeit und keine Möglichkeiten
+- ground truth: There were no jobs no opportunities
+- predict: There were no work and no one
+
+- source: Sie suchten Leute wie ihn
+- ground truth: They sought people like him out
+- predict: They are <UNK> people like him
+
+- source: Aber diese Geschichte nimmt einen anderen Lauf
+- ground truth: But his story takes a different route
+- predict: But this story is a different one
+
+- source: Aden erkannte die Gelegenheit und ergriff sie
+- ground truth: Aden saw an opportunity and seized it
+- predict: <UNK> that world's and <UNK> them
+
+- source: Er eröffnete eine Motorradgeschäft
+- ground truth: He started a motorbike company
+- predict: He <UNK> a <UNK>
+
+- source: Wie unterscheidet sich diese Geschichte von der anderen
+- ground truth: How is this story different
+- predict: How much does this story come from others
+
+- source: Was macht den Unterschied aus
+- ground truth: What makes his story different
+- predict: What does the York do
+
+- source: Man kann jungen Leuten beibringen Unternehmer zu sein
+- ground truth: And you can train young people to be entrepreneurs
+- predict: You can be able to be able to economic
+
+- source: Also sah Mohamed eine Gelegenheit
+- ground truth: So Mohamed saw an opportunity
+- predict: So <UNK> is a world's
+
+- source: Er gründete eine Landschaftsgärtnerei mit Blumenladen
+- ground truth: He started a landscaping and design floral company
+- predict: attention a <UNK> with <UNK>
+
+- source: Es gibt keine öffentlichen Parks in Mogadischu
+- ground truth: There's no public park in Mogadishu
+- predict: There are no black model of <UNK>
+
+- source: Sie hatten unternehmerischen Lösungen für lokale Probleme
+- ground truth: They came up with entrepreneurial solutions to local problems
+- predict: They had created <UNK> for <UNK> problems
+
+- source: Es geht um die Erschaffung sozialer Effekte
+- ground truth: It's about creating a social impact
+- predict: It's about the things that are using more
+
+- source: Mohamed verkauft nicht einfach nur Blumen
+- ground truth: Mohamed is not simply selling flowers
+- predict: <UNK> Not just six course
+
+- source: Ich glaube er verkauft Hoffnung
+- ground truth: I believe he is selling hope
+- predict: I think he wear night
+
+- source: Vielen Dank
+- ground truth: Thank you
+- predict: Thank you very much
+
+- source: Aber diese Muscheln sind schwer zu finden
+- ground truth: But you know these shells they're hard to find
+- predict: But these <UNK> are too
+
+- source: Sie sind von Sand umhüllt kaum zu sehen
+- ground truth: They're covered in sand They're difficult to see
+- predict: They're <UNK> <UNK> to see
+
+- source: Wissen zu teilen ist die größte aller Berufungen
+- ground truth: Sharing knowledge is the greatest of all callings
+- predict: You know it's too buy the <UNK>
+
+- source: Es gibt nichts dergleichen im Lande
+- ground truth: There's nothing like it in the land
+- predict: There's nothing there in the way of the <UNK>
+
+- source: Danke vielmals
+- ground truth: Thank you very much
+- predict: Thank you for the same
+
+- source: Danke
+- ground truth: Thank you
+- predict: Thank you
+
+- source: Ein chinesischer Gelehrter versteht ca  Schriftzeichen
+- ground truth: A Chinese scholar would understand  characters
+- predict: A lot of <UNK> <UNK> about this
+
+- source: Sie brauchen nur  Schriftzeichen für ein einfaches Schriftverständnis
+- ground truth: You only need  to understand the basic literacy
+- predict: You need just for a <UNK> <UNK>
+
+- source: Sind Sie bereit
+- ground truth: You are ready
+- predict: So you see
+
+- source: Daraus wird ein Mund
+- ground truth: You get a mouth
+- predict: <UNK> a place
+
+- source: Dieser Mensch geht spazieren
+- ground truth: This is a person going for a walk
+- predict: This is going on the ago
+
+- source: Mensch
+- ground truth: Person
+- predict: <UNK>
+
+- source: Das ist ein Baum
+- ground truth: This is a tree
+- predict: This is a tree
+
+- source: Baum
+- ground truth: Tree
+- predict: <UNK>
+
+- source: Das ist ein Berg
+- ground truth: This is a mountain
+- predict: This is a huge birthday
+
+- source: Die Sonne
+- ground truth: The sun
+- predict: The goal
+
+Bleu Score = 9.579606863439679
