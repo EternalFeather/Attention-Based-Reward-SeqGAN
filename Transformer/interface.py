@@ -9,7 +9,6 @@ from Transformer.corpora.data_loader import Data_helper
 from Transformer.config.hyperparams import Hyperparams as pm
 from tqdm import tqdm
 from collections import Counter
-import regex
 
 
 class Transformer_interface(object):
@@ -88,7 +87,7 @@ class Transformer_interface(object):
 						preds[:, j] = pred[:, j]
 
 					for source, target, pred in zip(sources, targets, preds):
-						res = " ".join(self.idx2en[idx] for idx in pred).split("</S>")[0].strip()
+						res = " ".join(self.idx2en[idx] for idx in pred).split("<EOS>")[0].strip()
 						f.write("- source: {}\n".format(source))
 						f.write("- ground truth: {}\n".format(target))
 						f.write("- predict: {}\n\n".format(res))
@@ -97,7 +96,7 @@ class Transformer_interface(object):
 						# Bleu Score
 						ref = target.split()
 						predicts = res.split()
-						if len(ref) > 3 and len(predicts) > 3:
+						if len(ref) > pm.min_word_count and len(predicts) > pm.min_word_count:
 							list_of_refs.append([ref])
 							hypothesis.append(predicts)
 
@@ -108,18 +107,17 @@ class Transformer_interface(object):
 
 	def build_vocabulary(self, path, fname):
 		files = codecs.open(path, 'r', encoding='utf-8').read()
-		text = regex.sub("[^\s\p{Latin}']", "", files)
-		words = text.split()
+		words = files.split()
 		wordcount = Counter(words)
 		if not os.path.exists('vocabulary'):
 			os.mkdir('vocabulary')
 		with codecs.open(fname, 'w', encoding='utf-8') as f:
-			f.write("{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n".format("<PAD>", "<UNK>", "<S>", "</S>"))
+			f.write("{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n".format("<PAD>", "<UNK>", "<SOS>", "<EOS>"))
 			for word, count in wordcount.most_common(len(wordcount)):
 				f.write("{}\t{}\n".format(word, count))
 
 
 if __name__ == '__main__':
 	interface = Transformer_interface()
-	# interface.train()
-	interface.evaluate()
+	interface.train()
+	# interface.evaluate()

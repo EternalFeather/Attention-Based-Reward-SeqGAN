@@ -12,6 +12,7 @@
       <w>logdir</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>maxlen</w>
       <w>mname</w>
       <w>multihead</w>
       <w>networds</w>

@@ -144,7 +144,7 @@ class Transformer(object):
 
 			# Optimizer
 			self.global_step = tf.Variable(0, name='global_step', trainable=False)  # when it is passed in the minimize() argument list ,the variable is increased by one
-			self.optimizer = tf.train.AdamOptimizer(learning_rate=pm.lr, beta1=0.9, beta2=0.98, epsilon=1e-8).minimize(self.mean_loss, global_step=self.global_step)
+			self.optimizer = tf.train.AdamOptimizer(learning_rate=pm.learning_rate, beta1=0.9, beta2=0.98, epsilon=1e-8).minimize(self.mean_loss, global_step=self.global_step)
 
 			# Summary
 			tf.summary.scalar('mean_loss', self.mean_loss)

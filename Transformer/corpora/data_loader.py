@@ -30,20 +30,15 @@ class Data_helper(object):
         return x, y, num_batch
 
     def load_train_datasets(self):
-        de_sents = [regex.sub("[^\s\p{Latin}']", "", line) for line in codecs.open(pm.source_train, 'r', 'utf-8').read().split("\n") if line and line[0] != "<"]
-        en_sents = [regex.sub("[^\s\p{Latin}']", "", line) for line in codecs.open(pm.target_train, 'r', 'utf-8').read().split("\n") if line and line[0] != "<"]
+        de_sents = [line for line in codecs.open(pm.source_train, 'r', 'utf-8').read().split("\n") if line]
+        en_sents = [line for line in codecs.open(pm.target_train, 'r', 'utf-8').read().split("\n") if line]
         x, y, sources, targets = self.generate(de_sents, en_sents)
 
         return x, y
 
     def load_test_datasets(self):
-        def _refine(line):
-            line = regex.sub("<[^>]+>", "", line)
-            line = regex.sub("[^\s\p{Latin}']", "", line)
-            return line.strip()
-
-        de_sents = [_refine(line) for line in codecs.open(pm.source_test, 'r', 'utf-8').read().split("\n") if line and line[:4] == "<seg"]
-        en_sents = [_refine(line) for line in codecs.open(pm.target_test, 'r', 'utf-8').read().split("\n") if line and line[:4] == "<seg"]
+        de_sents = [line for line in codecs.open(pm.source_test, 'r', 'utf-8').read().split("\n") if line]
+        en_sents = [line for line in codecs.open(pm.target_test, 'r', 'utf-8').read().split("\n") if line]
         x, y, sources, targets = self.generate(de_sents, en_sents)
 
         return x, sources, targets
@@ -54,8 +49,8 @@ class Data_helper(object):
 
         x_list, y_list, Sources, Targets = [], [], [], []
         for source_sent, target_sent in zip(source_sents, target_sents):
-            x = [de2idx.get(word, 1) for word in (source_sent + u" </S>").split()]
-            y = [en2idx.get(word, 1) for word in (target_sent + u" </S>").split()]
+            x = [de2idx.get(word, 1) for word in (source_sent + " <EOS>").split()]
+            y = [en2idx.get(word, 1) for word in (target_sent + " <EOS>").split()]
             if max(len(x), len(y)) <= pm.maxlen:
                 x_list.append(np.array(x))
                 y_list.append(np.array(y))
