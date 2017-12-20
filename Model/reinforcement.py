@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
-import numpy as np
 import tensorflow as tf
 from tensorflow.python.ops import tensor_array_ops, control_flow_ops
-from Config.hyperparameters import Hyperparameter as pm
+from Config.hyperparameters import Parameters as pm
+import numpy as np
 
 
 class Reinforcement(object):
@@ -12,9 +12,9 @@ class Reinforcement(object):
 
 		self.vocab_size = self.model.vocab_size
 		self.batch_size = self.model.batch_size
-		self.emb_size = self.model.emb_size
+		self.embed_size = self.model.embed_size
 		self.hidden_size = self.model.hidden_size
-		self.seq_length = self.model.seq_length
+		self.sequence_length = self.model.sequence_length
 
 # Initialize parameters(Load from generator for adversarial training) ------------------
 
@@ -24,23 +24,23 @@ class Reinforcement(object):
 		self.rl_lstm_forward = self.lstm_forward()
 		self.rl_linear_forward = self.linear_forward()
 
-		# Placeholder
-		self.x = tf.placeholder(tf.int32, shape=[self.batch_size, self.seq_length])
+		# placeholder
+		self.x = tf.placeholder(tf.int32, shape=[self.batch_size, self.sequence_length])
 		self.given_num = tf.placeholder(tf.int32)
 
 		# Processed for batch(Real data)
 		self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.rl_embeddings, self.x), perm=[1, 0, 2])
 
-		ta_emb_x = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.seq_length, dynamic_size=False, infer_shape=True)
-		ta_emb_x = ta_emb_x.unstack(self.processed_x)
+		ta_embed_x = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.sequence_length, dynamic_size=False, infer_shape=True)
+		ta_embed_x = ta_embed_x.unstack(self.processed_x)
 
-		ta_x = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.seq_length, dynamic_size=False, infer_shape=True)
+		ta_x = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.sequence_length, dynamic_size=False, infer_shape=True)
 		ta_x = ta_x.unstack(tf.transpose(self.x, perm=[1, 0]))
 
 		self.h0 = tf.zeros([self.batch_size, self.hidden_size])
 		self.h0 = tf.stack([self.h0, self.h0])
 
-		token_sequence = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.seq_length, dynamic_size=False, infer_shape=True)
+		token_sequence = tensor_array_ops.TensorArray(dtype=tf.int32, size=self.sequence_length, dynamic_size=False, infer_shape=True)
 
 # End initialize ------------------
 
@@ -49,7 +49,7 @@ class Reinforcement(object):
 		# When current index i < given_num, use the provided tokens as the input at each time step
 		def _rl_recurrence_1(i, x_t, h_tm, given_num, gen_x):
 			h_t = self.rl_lstm_forward(x_t, h_tm)
-			x_ = ta_emb_x.read(i)
+			x_ = ta_embed_x.read(i)
 			gen_x = gen_x.write(i, ta_x.read(i))
 			return i + 1, x_, h_t, given_num, gen_x
 
@@ -71,15 +71,13 @@ class Reinforcement(object):
 		)
 
 		_, _, _, _, self.token_sequence = control_flow_ops.while_loop(
-			cond=lambda i, _1, _2, _3, _4: i < self.seq_length,
+			cond=lambda i, _1, _2, _3, _4: i < self.sequence_length,
 			body=_rl_recurrence_2,
 			loop_vars=(i, x_t, h_tm, given_num, self.token_sequence)
 		)
 
 		self.token_sequence = self.token_sequence.stack()
 		self.token_sequence = tf.transpose(self.token_sequence, perm=[1, 0])    # shape = [batch_size, seq_length]
-
-# End Forward step ----------------------
 
 	def lstm_forward(self):
 		self.Wi = tf.identity(self.model.Wi)
@@ -113,11 +111,11 @@ class Reinforcement(object):
 				tf.matmul(x, self.Wo) + tf.matmul(hidden_state, self.Uo) + self.bo
 			)
 
-			c_ = tf.nn.tanh(
+			c_ = tf.sigmoid(
 				tf.matmul(x, self.Wc) + tf.matmul(hidden_state, self.Uc) + self.bc
 			)
 
-			c = f * cell + i * c_
+			c = f * cell + c_ * i
 
 			current_hidden_state = o * tf.nn.tanh(c)
 
@@ -142,22 +140,22 @@ class Reinforcement(object):
 		for i in range(monte_carlo_turns):
 			for given_num in range(1, 20):
 				samples = sess.run(self.token_sequence, feed_dict={self.x: x, self.given_num: given_num})
-				ypred_for_auc = sess.run(discriminator.ypred_for_auc, feed_dict={discriminator.x: samples, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
-				ypred = np.array([item[1] for item in ypred_for_auc])   # prob of positive
+				ypred_for_acu = sess.run(discriminator.y_pred_for_acu, feed_dict={discriminator.x: samples, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
+				ypred = np.array([item[1] for item in ypred_for_acu])   # prob of positive
 				if i == 0:
 					rewards.append(ypred)
 				else:
 					rewards[given_num - 1] += ypred     # shape = [seq_length * batch_size]
 
 			# The last token reward is from the whole sequence reward
-			ypred_for_auc = sess.run(discriminator.ypred_for_auc, feed_dict={discriminator.x: x, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
-			ypred = np.array([item[1] for item in ypred_for_auc])
+			ypred_for_acu = sess.run(discriminator.y_pred_for_acu, feed_dict={discriminator.x: x, discriminator.dropout_keep_prob: pm.ADVERSARIAL_DROPOUT})
+			ypred = np.array([item[1] for item in ypred_for_acu])
 			if i == 0:
 				rewards.append(ypred)
 			else:
 				rewards[19] += ypred
 
-		rewards = np.transpose(np.array(rewards)) / (1.0 * monte_carlo_turns)   # shape = [batch_size * seq_length]
+		rewards = np.transpose(np.array(rewards)) / (1.0 * monte_carlo_turns)		# shape = [batch_size * seq_length]
 		return rewards
 
 	def update_params(self):
@@ -198,7 +196,7 @@ class Reinforcement(object):
 				tf.matmul(x, self.Wo) + tf.matmul(hidden_state, self.Uo) + self.bo
 			)
 
-			c_ = tf.nn.tanh(
+			c_ = tf.sigmoid(
 				tf.matmul(x, self.Wc) + tf.matmul(hidden_state, self.Uc) + self.bc
 			)
 
@@ -221,5 +219,3 @@ class Reinforcement(object):
 			return output
 
 		return forward
-
-

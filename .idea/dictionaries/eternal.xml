@@ -8,10 +8,13 @@
       <w>diag</w>
       <w>feedforward</w>
       <w>fname</w>
+      <w>gradicts</w>
       <w>iwslt</w>
+      <w>lienar</w>
       <w>logdir</w>
       <w>logits</w>
       <w>lstm</w>
+      <w>matplotformat</w>
       <w>maxlen</w>
       <w>mname</w>
       <w>multihead</w>

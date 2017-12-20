@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
 import random
-from Config.hyperparameters import Hyperparameter as pm
+from Config.hyperparameters import Parameters as pm
 import numpy as np
 import tensorflow as tf
-from Datasets.data_loader import Gen_data_loader, Dis_data_loader
-from Model.generator import Generator
-from Model.discriminator import Discriminator
+from Datasets.dataloader import Gen_data_loader, Dis_data_loader
 import pickle
 from Model.corpus_lstm import Corpus_lstm
-from Model.reinforcement import Reinforcement
-import codecs
+import codecs, os
 import matplotlib.pyplot as plt
+from Model.generator import Generator
+from Model.discriminator import Discriminator
+from Model.reinforcement import Reinforcement
 
 
 class SeqGAN(object):
@@ -26,7 +26,7 @@ class SeqGAN(object):
 		likelihood_data_loader = Gen_data_loader(pm.BATCH_SIZE)     # For Testing
 		dis_data_loader = Dis_data_loader(pm.BATCH_SIZE)
 		generator = Generator(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN,pm.LEARNING_RATE, pm.REWARD_GAMMA)
-		discriminator = Discriminator(pm.SEQ_LENGTH, pm.NUM_CLASSES, pm.VOCAB_SIZE, pm.DIS_EMB_SIZE, pm.FILTER_SIZES, pm.NUM_FILTERS, pm.L2_REG_LAMBDA)
+		discriminator = Discriminator(pm.SEQ_LENGTH, pm.NUM_CLASSES, pm.VOCAB_SIZE, pm.DIS_EMB_SIZE, pm.FILTER_SIZES, pm.NUM_FILTERS, pm.D_LEARNING_RATE, pm.L2_REG_LAMBDA)
 		target_params = pickle.load(open(pm.MODEL_PATH, 'rb'), encoding='latin1')   # Oracle LSTM_model for corpus generation
 		corpus_lstm = Corpus_lstm(pm.VOCAB_SIZE, pm.BATCH_SIZE, pm.EMB_SIZE, pm.HIDDEN_SIZE, pm.SEQ_LENGTH, pm.START_TOKEN, target_params)
 
@@ -43,9 +43,11 @@ class SeqGAN(object):
 
 # Pre-train Generator with real datasets from corpus_lstm model ----------------
 
+		if not os.path.exists('Datasets/Oracle'):
+			os.mkdir('Datasets/Oracle')
 		# Generate 1W sequences of length 20 as the training set S for the generator model
 		self.generate_samples(sess, corpus_lstm, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.REAL_DATA_PATH)
-		gen_data_loader.mini_batches(pm.REAL_DATA_PATH)
+		gen_data_loader.mini_batch(pm.REAL_DATA_PATH)
 
 		log = codecs.open("Log/experiment-log.txt", 'w', encoding='utf-8')
 
@@ -58,16 +60,16 @@ class SeqGAN(object):
 			pretrain_loss = self.gen_pre_train_loss(sess, generator, gen_data_loader)
 			if epoch % 5 == 0:
 				self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.PRE_GENERATOR_DATA)
-				likelihood_data_loader.mini_batches(pm.PRE_GENERATOR_DATA)
+				likelihood_data_loader.mini_batch(pm.PRE_GENERATOR_DATA)
 				test_loss = self.target_loss(sess, corpus_lstm, likelihood_data_loader)
-				gen.append(test_loss)
+				# gen.append(test_loss)
 				print("Pre-train Gen Epoch: {}, Test_loss(NLL): {}, Pretrain_loss: {}".format(epoch, test_loss, pretrain_loss))
 				buffer = "Pre-train Generator Epoch:\t{}\tNLL:\t{}\tGenerator_Loss:{}\n".format(str(epoch), str(test_loss), str(pretrain_loss))
 				log.write(buffer)
 				log.flush()
 
-		pretrain_fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
-		self.matplotformat(ax1, gen, 'Pre-train Generator', pm.G_PRE_TRAIN_EPOCH)
+		# pretrain_fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+		# self.matplotformat(ax1, gen, 'Pre-train Generator', pm.G_PRE_TRAIN_EPOCH)
 
 # End of pre-train Generator ---------------
 
@@ -84,20 +86,20 @@ class SeqGAN(object):
 			dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.G_NEG_SAMPLING_DATA)
 			for _ in range(pm.K):
 				test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
-				if test_loss < temp_min:
-					temp_min = test_loss
-				if test_loss > temp_max:
-					temp_max = test_loss
-
-			if epoch % 5 == 0:
-				dis.append(test_loss)
-				print("Pre-train Dis Epoch: {}, Test_loss(NLL): {}".format(epoch, test_loss))
-				buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch), str(test_loss))
-				log.write(buffer)
-				log.flush()
-
-		dis_norm = self.normalize(dis, temp_min, temp_max)
-		self.matplotformat(ax2, dis_norm, 'Pre-train Discriminator', pm.D_PRE_TRAIN_EPOCH)
+		# 		if test_loss < temp_min:
+		# 			temp_min = test_loss
+		# 		if test_loss > temp_max:
+		# 			temp_max = test_loss
+		#
+		# 	if epoch % 5 == 0:
+		# 		dis.append(test_loss)
+		# 		print("Pre-train Dis Epoch: {}, Test_loss(NLL): {}".format(epoch, test_loss))
+		# 		buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch), str(test_loss))
+		# 		log.write(buffer)
+		# 		log.flush()
+		#
+		# dis_norm = self.normalize(dis, temp_min, temp_max)
+		# self.matplotformat(ax2, dis_norm, 'Pre-train Discriminator', pm.D_PRE_TRAIN_EPOCH)
 
 # End of pre-train Discriminator --------------------
 
@@ -121,9 +123,9 @@ class SeqGAN(object):
 			# Testing the result for each batch
 			if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
 				self.generate_samples(sess, generator, pm.BATCH_SIZE, pm.GENERATED_NUM, pm.ADVERSARIAL_G_DATA)
-				likelihood_data_loader.mini_batches(pm.ADVERSARIAL_G_DATA)
+				likelihood_data_loader.mini_batch(pm.ADVERSARIAL_G_DATA)
 				test_loss = self.target_loss(sess, corpus_lstm, likelihood_data_loader)
-				gen.append(test_loss)
+				# gen.append(test_loss)
 				buffer = "Adversarial Epoch:\t{}\tG_NLL:\t{}\n".format(str(total_batch), str(test_loss))
 				print("Adversarial Epoch: [{}/{}], GEN_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
 				log.write(buffer)
@@ -142,23 +144,23 @@ class SeqGAN(object):
 				dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.ADVERSARIAL_NEG_DATA)
 				for _ in range(pm.K):
 					test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
-					if test_loss < temp_min:
-						temp_min = test_loss
-					if test_loss > temp_max:
-						temp_max = test_loss
+			# 		if test_loss < temp_min:
+			# 			temp_min = test_loss
+			# 		if test_loss > temp_max:
+			# 			temp_max = test_loss
+			#
+			# if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
+			# 	dis.append(test_loss)
+			# 	print("Adversarial Epoch: [{}/{}], DIS_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
+			# 	buffer = "Adversarial Epoch:\t{}\tD_NLL:\t{}\n".format(str(total_batch), str(test_loss))
+			# 	log.write(buffer)
+			# 	log.flush()
 
-			if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
-				dis.append(test_loss)
-				print("Adversarial Epoch: [{}/{}], DIS_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
-				buffer = "Adversarial Epoch:\t{}\tD_NLL:\t{}\n".format(str(total_batch), str(test_loss))
-				log.write(buffer)
-				log.flush()
-
-		ad_dis_norm = self.normalize(dis, temp_min, temp_max)
-		self.matplotformat(ax3, gen, 'Adversarial Generator', pm.G_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
-		self.matplotformat(ax4, ad_dis_norm, 'Adversarial Discriminator', pm.D_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
-		plt.tight_layout()
-		plt.show()
+		# ad_dis_norm = self.normalize(dis, temp_min, temp_max)
+		# self.matplotformat(ax3, gen, 'Adversarial Generator', pm.G_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
+		# self.matplotformat(ax4, ad_dis_norm, 'Adversarial Discriminator', pm.D_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
+		# plt.tight_layout()
+		# plt.show()
 
 		log.close()
 		print("MSG : Done!")

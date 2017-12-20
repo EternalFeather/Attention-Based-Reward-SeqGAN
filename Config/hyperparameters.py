@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 
-class Hyperparameter(object):
+class Parameters(object):
 
 	# Adversarial
 	RANDOM_SEED = 88
@@ -10,15 +10,15 @@ class Hyperparameter(object):
 	VOCAB_SIZE = 5000
 	GENERATED_NUM = 10000
 	K = 3
-	TOTAL_BATCHES = 50
+	TOTAL_BATCHES = 150
 	MONTE_CARLO_TURNS = 16
 	ADVERSARIAL_DROPOUT = 1.0
-	MODEL_PATH = "Model/target_params_py3.pkl"
-	REAL_DATA_PATH = "Datasets/Real_datasets.txt"
-	PRE_GENERATOR_DATA = "Datasets/Pre_train_generator_datasets.txt"
-	G_NEG_SAMPLING_DATA = "Datasets/Generator_negative_sampling_datasets.txt"
-	ADVERSARIAL_G_DATA = "Datasets/Adversarial_generator_sampling_datasets.txt"
-	ADVERSARIAL_NEG_DATA = "Datasets/Adversarial_negative_datasets.txt"
+	MODEL_PATH = "Log/target_params_py3.pkl"
+	REAL_DATA_PATH = "Datasets/Oracle/Real_datasets.txt"
+	PRE_GENERATOR_DATA = "Datasets/Oracle/Pre_train_generator_datasets.txt"
+	G_NEG_SAMPLING_DATA = "Datasets/Oracle/Generator_negative_sampling_datasets.txt"
+	ADVERSARIAL_G_DATA = "Datasets/Oracle/Adversarial_generator_sampling_datasets.txt"
+	ADVERSARIAL_NEG_DATA = "Datasets/Oracle/Adversarial_negative_datasets.txt"
 
 	# Generator
 	EMB_SIZE = 32
@@ -26,7 +26,7 @@ class Hyperparameter(object):
 	SEQ_LENGTH = 20
 	LEARNING_RATE = 0.01
 	REWARD_GAMMA = 0.95
-	G_PRE_TRAIN_EPOCH = 200
+	G_PRE_TRAIN_EPOCH = 120
 	UPDATE_RATE = 0.8
 	G_STEP = 1
 
@@ -35,8 +35,8 @@ class Hyperparameter(object):
 	NUM_CLASSES = 2
 	FILTER_SIZES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]
 	NUM_FILTERS = [100, 200, 200, 200, 200, 100, 100, 100, 100, 100, 160, 160]
+	D_LEARNING_RATE = 1e-4
 	L2_REG_LAMBDA = 0.2
 	D_PRE_TRAIN_EPOCH = 50
 	D_DROP_KEEP_PROB = 0.75
 	D_STEP = 5
-
