@@ -140,6 +140,6 @@ class Discriminator(object):
         return tf.matmul(input_, tf.transpose(matrix, [1, 0])) + bias_term
 
     def pretrain_forward(self, sess, x, y, dropout):
-        # outputs = sess.run([self.d_updates, self.loss], feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
-        outputs = sess.run(self.d_updates, feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
+        outputs = sess.run([self.d_updates, self.loss], feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
+        # outputs = sess.run(self.d_updates, feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
         return outputs
