@@ -30,9 +30,10 @@ class Discriminator(object):
         with tf.variable_scope('discriminator'):
             # Embedding layer
             with tf.name_scope('embedding'):
-                self.d_embeddings = tf.Variable(tf.random_uniform([self.vocab_size, self.embed_size], -1.0, 1.0), name='d_embeddings')
-                self.embedding_chars = tf.nn.embedding_lookup(self.d_embeddings, self.x)
-                self.embedding_chars_expanded = tf.expand_dims(self.embedding_chars, -1)  # shape = [batch_size, sequence_length, emb_size, 1]
+                with tf.device('/cpu:0'):
+                    self.d_embeddings = tf.Variable(tf.random_uniform([self.vocab_size, self.embed_size], -1.0, 1.0), name='d_embeddings')
+                    self.embedding_chars = tf.nn.embedding_lookup(self.d_embeddings, self.x)
+                    self.embedding_chars_expanded = tf.expand_dims(self.embedding_chars, -1)  # shape = [batch_size, sequence_length, emb_size, 1]
 
 # End embedding step --------------
 
@@ -141,5 +142,4 @@ class Discriminator(object):
 
     def pretrain_forward(self, sess, x, y, dropout):
         outputs = sess.run([self.d_updates, self.loss], feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
-        # outputs = sess.run(self.d_updates, feed_dict={self.x: x, self.y: y, self.dropout_keep_prob: dropout})
         return outputs

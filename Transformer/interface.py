@@ -39,10 +39,6 @@ class Transformer_interface(object):
 				if sv.should_stop():
 					break
 				for _ in tqdm(range(model.num_batch), total=model.num_batch, ncols=70, leave=False, unit='b'):
-					# for step in range(model.num_batch):
-					# 	print("x", sess.run(model.x))
-					# 	print("y", sess.run(model.y))
-					# 	print("pred", sess.run(model.predicts))
 					sess.run(model.optimizer)
 
 				gs = sess.run(model.global_step)

@@ -10,7 +10,7 @@ class Parameters(object):
 	VOCAB_SIZE = 5000
 	GENERATED_NUM = 10000
 	K = 3
-	TOTAL_BATCHES = 150
+	TOTAL_BATCHES = 120
 	MONTE_CARLO_TURNS = 16
 	ADVERSARIAL_DROPOUT = 1.0
 	MODEL_PATH = "Log/target_params_py3.pkl"
@@ -19,6 +19,8 @@ class Parameters(object):
 	G_NEG_SAMPLING_DATA = "Datasets/Oracle/Generator_negative_sampling_datasets.txt"
 	ADVERSARIAL_G_DATA = "Datasets/Oracle/Adversarial_generator_sampling_datasets.txt"
 	ADVERSARIAL_NEG_DATA = "Datasets/Oracle/Adversarial_negative_datasets.txt"
+	CHINESE_QUATRAINS_FIVE = "Datasets/Chinese_quatrains/Chinese_quatrains_5.txt"
+	CHINESE_VOCAB_PATH = "Datasets/Chinese_quatrains/Chinese_quatrains_5.vocab"
 
 	# Generator
 	EMB_SIZE = 32
@@ -26,7 +28,7 @@ class Parameters(object):
 	SEQ_LENGTH = 20
 	LEARNING_RATE = 0.01
 	REWARD_GAMMA = 0.95
-	G_PRE_TRAIN_EPOCH = 120
+	G_PRE_TRAIN_EPOCH = 200
 	UPDATE_RATE = 0.8
 	G_STEP = 1
 

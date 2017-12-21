@@ -68,8 +68,8 @@ class SeqGAN(object):
 				log.write(buffer)
 				log.flush()
 
-		# pretrain_fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
-		# self.matplotformat(ax1, gen, 'Pre-train Generator', pm.G_PRE_TRAIN_EPOCH)
+		pretrain_fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+		self.matplotformat(ax1, gen, 'Pre-train Generator', pm.G_PRE_TRAIN_EPOCH)
 
 # End of pre-train Generator ---------------
 
@@ -86,20 +86,20 @@ class SeqGAN(object):
 			dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.G_NEG_SAMPLING_DATA)
 			for _ in range(pm.K):
 				test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
-		# 		if test_loss < temp_min:
-		# 			temp_min = test_loss
-		# 		if test_loss > temp_max:
-		# 			temp_max = test_loss
-		#
-		# 	if epoch % 5 == 0:
-		# 		dis.append(test_loss)
-		# 		print("Pre-train Dis Epoch: {}, Test_loss(NLL): {}".format(epoch, test_loss))
-		# 		buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch), str(test_loss))
-		# 		log.write(buffer)
-		# 		log.flush()
-		#
-		# dis_norm = self.normalize(dis, temp_min, temp_max)
-		# self.matplotformat(ax2, dis_norm, 'Pre-train Discriminator', pm.D_PRE_TRAIN_EPOCH)
+				if test_loss < temp_min:
+					temp_min = test_loss
+				if test_loss > temp_max:
+					temp_max = test_loss
+
+			if epoch % 5 == 0:
+				dis.append(test_loss)
+				print("Pre-train Dis Epoch: {}, Test_loss(NLL): {}".format(epoch, test_loss))
+				buffer = "Pre-train Discriminator Epoch:\t{}\tNLL:\t{}\n".format(str(epoch), str(test_loss))
+				log.write(buffer)
+				log.flush()
+
+		dis_norm = self.normalize(dis, temp_min, temp_max)
+		self.matplotformat(ax2, dis_norm, 'Pre-train Discriminator', pm.D_PRE_TRAIN_EPOCH)
 
 # End of pre-train Discriminator --------------------
 
@@ -144,23 +144,23 @@ class SeqGAN(object):
 				dis_data_loader.mini_batch(pm.REAL_DATA_PATH, pm.ADVERSARIAL_NEG_DATA)
 				for _ in range(pm.K):
 					test_loss = self.dis_pre_train_loss(sess, discriminator, dis_data_loader)
-			# 		if test_loss < temp_min:
-			# 			temp_min = test_loss
-			# 		if test_loss > temp_max:
-			# 			temp_max = test_loss
-			#
-			# if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
-			# 	dis.append(test_loss)
-			# 	print("Adversarial Epoch: [{}/{}], DIS_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
-			# 	buffer = "Adversarial Epoch:\t{}\tD_NLL:\t{}\n".format(str(total_batch), str(test_loss))
-			# 	log.write(buffer)
-			# 	log.flush()
+					if test_loss < temp_min:
+						temp_min = test_loss
+					if test_loss > temp_max:
+						temp_max = test_loss
 
-		# ad_dis_norm = self.normalize(dis, temp_min, temp_max)
-		# self.matplotformat(ax3, gen, 'Adversarial Generator', pm.G_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
-		# self.matplotformat(ax4, ad_dis_norm, 'Adversarial Discriminator', pm.D_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
-		# plt.tight_layout()
-		# plt.show()
+			if total_batch % 5 == 0 or total_batch == pm.TOTAL_BATCHES - 1:
+				dis.append(test_loss)
+				print("Adversarial Epoch: [{}/{}], DIS_Test_loss(NLL): {}".format(total_batch, pm.TOTAL_BATCHES, test_loss))
+				buffer = "Adversarial Epoch:\t{}\tD_NLL:\t{}\n".format(str(total_batch), str(test_loss))
+				log.write(buffer)
+				log.flush()
+
+		ad_dis_norm = self.normalize(dis, temp_min, temp_max)
+		self.matplotformat(ax3, gen, 'Adversarial Generator', pm.G_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
+		self.matplotformat(ax4, ad_dis_norm, 'Adversarial Discriminator', pm.D_PRE_TRAIN_EPOCH + pm.TOTAL_BATCHES)
+		plt.tight_layout()
+		plt.show()
 
 		log.close()
 		print("MSG : Done!")

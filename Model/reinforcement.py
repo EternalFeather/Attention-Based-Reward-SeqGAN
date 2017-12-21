@@ -29,7 +29,8 @@ class Reinforcement(object):
 		self.given_num = tf.placeholder(tf.int32)
 
 		# Processed for batch(Real data)
-		self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.rl_embeddings, self.x), perm=[1, 0, 2])
+		with tf.device("/cpu:0"):
+			self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.rl_embeddings, self.x), perm=[1, 0, 2])
 
 		ta_embed_x = tensor_array_ops.TensorArray(dtype=tf.float32, size=self.sequence_length, dynamic_size=False, infer_shape=True)
 		ta_embed_x = ta_embed_x.unstack(self.processed_x)

@@ -31,7 +31,8 @@ class Generator(object):
 		self.rewards = tf.placeholder(tf.float32, shape=[self.batch_size, self.sequence_length])
 
 		# processed for batch(Real datasets)
-		self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.g_embeddings, self.x), perm=[1, 0, 2])  # shape=[seq_length, batch_size, emb_size]
+		with tf.device("/cpu:0"):
+			self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.g_embeddings, self.x), perm=[1, 0, 2])  # shape=[seq_length, batch_size, emb_size]
 
 		# Init hidden state
 		self.h0 = tf.zeros([self.batch_size, self.hidden_size])

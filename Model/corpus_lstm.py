@@ -27,7 +27,8 @@ class Corpus_lstm(object):
 		self.x = tf.placeholder(tf.int32, shape=[self.batch_size, self.seq_length])
 
 		# processed for input(real_data --> for pre-train)
-		self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.target_embeddings, self.x), perm=[1, 0, 2]) # shape=[seq_length, batch_size, emb_size]
+		with tf.device("/cpu:0"):
+			self.processed_x = tf.transpose(tf.nn.embedding_lookup(self.target_embeddings, self.x), perm=[1, 0, 2]) # shape=[seq_length, batch_size, emb_size]
 
 		# Initialize hidden_state + cell
 		self.h0 = tf.zeros([self.batch_size, self.hidden_size])

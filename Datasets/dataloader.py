@@ -2,9 +2,10 @@
 import numpy as np
 import codecs
 from Config.hyperparameters import Parameters as pm
+from collections import Counter
 
 
-class Gen_data_loader():
+class Gen_data_loader(object):
 	def __init__(self, batch_size):
 		self.batch_size = batch_size
 		self.token_sentences = np.array([])
@@ -36,7 +37,7 @@ class Gen_data_loader():
 		self.pointer = 0
 
 
-class Dis_data_loader():
+class Dis_data_loader(object):
 	def __init__(self, batch_size):
 		self.batch_size = batch_size
 		self.token_sentence, self.labels = np.array([]), np.array([])
@@ -87,3 +88,63 @@ class Dis_data_loader():
 		self.pointer = 0
 
 
+class Obama_data_loader(object):
+	def __init__(self, batch_size):
+		self.batch_size = batch_size
+		self.pointer = 0
+
+	def build_vocabulary(self, path, datafile):
+		pass
+
+	def load_dataset(self, datafile):
+		pass
+
+	def load_vocabulary(self):
+		pass
+
+	def mini_batch(self):
+		pass
+
+	def next_batch(self):
+		pass
+
+	def reset_pointer(self):
+		self.pointer = 0
+
+
+class Chinese_qtans_data_loader(object):
+	def __init__(self, batch_size):
+		self.batch_size = batch_size
+		self.pointer = 0
+
+	def build_vocabulary(self, path, datafile):
+		files = codecs.open(datafile, 'r', encoding='utf-8').read()
+		words = files.split()
+		wordcount = Counter(words)
+		with codecs.open(path, 'w', encoding='utf-8') as f:
+			f.write("{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n{}\t1000000000\n".format("<PAD>", "<UNK>", "<SOS>", "<EOS>"))
+			for word, count in wordcount.most_common(len(wordcount)):
+				f.write("{}\t{}\n".format(word, count))
+
+	def load_dataset(self, path, datafile):
+		sentences = [line for line in codecs.open(datafile, 'r', encoding='utf-8').read().split('\n') if line]
+		word2idx, idx2word = self.load_vocabulary(path)
+
+		x_list, Sources = [], []
+		for source in sentences:
+			x = [word2idx.get(word, 1) for word in (source + " <EOS>").split()]
+
+	def load_vocabulary(self, path):
+		vocab = [line.split()[0] for line in codecs.open(path, 'r', encoding='utf-8').read().splitlines()]
+		word2idx = {word: idx for idx, word in enumerate(vocab)}
+		idx2word = {word2idx[word]: word for word in word2idx}
+		return word2idx, idx2word
+
+	def mini_batch(self, datafile):
+		sentences = self.load_dataset(datafile)
+
+	def next_batch(self):
+		pass
+
+	def reset_pointer(self):
+		self.pointer = 0

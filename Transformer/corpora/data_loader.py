@@ -3,7 +3,6 @@ import codecs
 import numpy as np
 import tensorflow as tf
 from Transformer.config.hyperparams import Hyperparams as pm
-import regex
 
 
 class Data_helper(object):
